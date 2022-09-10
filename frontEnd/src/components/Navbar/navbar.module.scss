@@ -1,0 +1,28 @@
+ul{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box; 
+    font-family: monsterrat;
+}
+nav{
+    background: linear-gradient(to right, #00093c, #2d0b00);
+    height: 80px;
+    width: 100%;
+}
+nav ul{
+    float: right;
+    margin-right: 20px;
+
+}
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+.navLink{
+    color: #fff;
+    font-size: 17px;
+    text-transform: uppercase;
+}
