@@ -5,6 +5,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import ViewUpdatePlayground from "./ViewUpdatePlayground";
 import ViewMoreAboutPlayground from "./ViewMoreAboutPlayground";
 const RecentlyAddedPlaygrounds = () => {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc4NzU4MSwiZXhwIjoxNjY1Mzc5NTgxfQ.c2dFzkb-B2Smb2QOtAnlx2FQ-Cmdl2nl57Z-6qZaeV4";
   const [playgrounds, setPlaygrounds] = useState([]);
 
   const api = `http://localhost:2004/api/playground/`;
@@ -14,9 +16,20 @@ const RecentlyAddedPlaygrounds = () => {
         setPlaygrounds(res.data.data);
       })
       .catch((err) => {
-        console.log("problem geting playgrounds", err);
+        console.log("problem getting playgrounds", err);
       });
   }, [api]);
+  const handleDelete = async (id) => {
+    console.log(id);
+    try {
+      await Axios.delete(
+        `http://localhost:2004/api/playGround/${id}?&&token=${token}`
+      );
+      setPlaygrounds(playgrounds.filter((item) => item._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   let display;
   if (playgrounds) {
     console.log(playgrounds);
@@ -72,7 +85,7 @@ const RecentlyAddedPlaygrounds = () => {
             </p>
           </div>
           <div style={{ cursor: "pointer" }} className="col col-1 p-2 text-end">
-            <DeleteOutlineOutlinedIcon />
+            <DeleteOutlineOutlinedIcon onClick={() => handleDelete(item._id)} />
           </div>
         </div>
       );
@@ -146,7 +159,9 @@ const RecentlyAddedPlaygrounds = () => {
                 style={{ cursor: "pointer" }}
                 className="col col-1 p-2 text-end"
               >
-                <DeleteOutlineOutlinedIcon />
+                <DeleteOutlineOutlinedIcon
+                  onClick={() => handleDelete(item._id)}
+                />
               </div>
             </div>
           ))}

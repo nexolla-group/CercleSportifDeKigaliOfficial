@@ -2,35 +2,42 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 const AddNewPlayGround = () => {
   const [name, setName] = useState("");
+  const [getcategory, setGetcategory] = useState([]);
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-  const [isAvailable, setIsAvailable] = useState("");
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGI0ZjNlNjY2NDhmZDBiOWZmMThhMSIsImlhdCI6MTY2MTg3ODczNywiZXhwIjoxNjY0NDcwNzM3fQ.GGqbGvGdH3KPiBD5TEtkhSxK6yOCC6TjzjiCwSbtvxg";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc4NzU4MSwiZXhwIjoxNjY1Mzc5NTgxfQ.c2dFzkb-B2Smb2QOtAnlx2FQ-Cmdl2nl57Z-6qZaeV4";
+  useEffect(() => {
+    Axios.get("http://localhost:2004/api/groundCategory")
+      .then((res) => {
+        setGetcategory(res.data.data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   const savePlayground = () => {
-    Axios.post("http://localhost:2004/api/v1/playGround/", {
+    Axios.post("http://localhost:2004/api/playGround/", {
       token,
       name,
       category,
       description,
       price,
-      isAvailable,
       image,
     })
       .then((response) => {
         setName("");
         setCategory("");
         setPrice("");
-        isAvailable("");
+        setDescription("");
         console.log("data saved successfully", response);
       })
       .catch((error) => {
         console.log("problem of saving data", error);
       });
+    console.log(name, description, category, price);
   };
 
   return (
@@ -52,20 +59,14 @@ const AddNewPlayGround = () => {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Playground Category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  />
-                </div>
+
                 <div class="mb-3">
                   <textarea
                     className="form-control"
                     placeholder="Playground Description......"
                     rows="2"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
                 <div className="mb-3">
@@ -78,15 +79,18 @@ const AddNewPlayGround = () => {
                   />
                 </div>
                 <select
-                  value={isAvailable}
-                  onChange={(e) => setIsAvailable(e.target.value)}
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   className="form-select form-select-lg mb-3"
                 >
                   <option className="text-dark" selected>
-                    Is this playground Available?
+                    Select playground category
                   </option>
-                  <option value="1">True</option>
-                  <option value="2">False</option>
+                  {getcategory.map((cat, i) => (
+                    <option value={cat._id} key={i}>
+                      {cat.name}
+                    </option>
+                  ))}
                 </select>
                 <div className="input-group mb-3">
                   <input
