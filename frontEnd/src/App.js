@@ -42,7 +42,7 @@ function App() {
           <Route path="/playgrounds" element={<Playgrounds />} />
           <Route path="/register" element={<UserRegister />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/:id/makebooking" element={<MakeBooking />} />
+          <Route path="/makebooking" element={<MakeBooking />} />
 
           {/* admin */}
           <Route path="/admin/index" element={<HomeAdmin />} />

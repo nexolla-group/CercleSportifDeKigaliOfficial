@@ -1,17 +1,18 @@
 import React from "react";
+import CheckoutModal from "../checkout/CheckoutModal";
 
 const MakeBooking = ({ setNextScreen }) => {
   return (
     <>
       <div
         style={{
-          border: "1px solid #eee",
           borderRadius: "10px",
           paddingBottom: "2rem",
           paddingLeft: "2rem",
           paddingRight: "2rem",
+          backgroundColor: "#fff",
         }}
-        Name="container p-2"
+        className="container-fluid mt-2 p-2"
       >
         <form class="row g-3">
           <div class="col-md-6">
@@ -84,7 +85,7 @@ const MakeBooking = ({ setNextScreen }) => {
             </div>
             <div className="col col-4"></div>
             <div className="col col-4 text-end">
-              <button className="btn btn-primary fs-5">Preview</button>
+              <CheckoutModal />
             </div>
           </div>
         </div>

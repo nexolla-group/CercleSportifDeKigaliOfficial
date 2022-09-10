@@ -9,17 +9,20 @@ import BlackFooter from "../Footer/BlackFooter";
 
 const CardDetails = () => {
   let { id } = useParams();
+  console.log(id);
   let [playgrounds, setPlaygrounds] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   let { name, description, photo, price, isAvailable } = playgrounds;
   let api = `http://localhost:2004/api/playground/${id}`;
+
   useEffect(() => {
     Axios.get(api)
       .then((res) => {
-        // console.log(res.data);
+        setIsLoading(false);
         setPlaygrounds(res.data.data);
       })
       .catch((err) => {
+        isLoading(true);
         console.log(err);
       });
   }, [api]);
@@ -37,9 +40,24 @@ const CardDetails = () => {
             paddingLeft: "0px",
           }}
         >
-          <div className="col col-xs-12 col-lg-6 col-sm-12 col-md-12">
-            <PlaygroundDetails />
-          </div>
+          {isLoading ? (
+            <>
+              <div className="container">
+                <div className="text-center">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="col col-xs-12 col-lg-6 col-sm-12 col-md-12">
+                <PlaygroundDetails />
+              </div>
+            </>
+          )}
+
           <div
             className="col col-xs-12 col-lg-6 col-sm-12 col-md-12 p-3"
             style={{ backgroundColor: "#fff", padding: "2rem" }}
@@ -72,6 +90,7 @@ const CardDetails = () => {
             {description}
           </div>
         </div>
+
         <div className="row" style={{ backgroundColor: "whitesmoke" }}>
           <div className="col">
             <BookPlayground />

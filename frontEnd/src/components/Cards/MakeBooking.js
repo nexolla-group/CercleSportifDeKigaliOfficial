@@ -29,7 +29,7 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
       setToken(token);
       setChecking(false);
     } else {
-      window.location = "/register";
+      window.location = `/register/#${id}`;
     }
   };
   useEffect(() => {
@@ -131,11 +131,6 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
             </div>
             <div className="row mt-3 mb-3">
               <div className="col col-4"></div>
-              {/* <div className="col">
-                <Link to="/booking" className="btn btn-primary fs-6">
-                  Checkout
-                </Link>
-              </div> */}
             </div>
             <Booking setNextScreen={setNextScreen} />
           </div>

@@ -57,6 +57,14 @@ const Footer = () => {
                   placeholder="Phone Number"
                   className="form-control mt-2"
                 />
+
+                <textarea
+                  className="form-control mt-2 fs-6"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  placeholder="type your message here"
+                ></textarea>
+
                 <button
                   style={{ width: "100%" }}
                   className="btn mt-2 btn-warning fs-5 text-black"

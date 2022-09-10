@@ -7,13 +7,13 @@ const Login = ({ back1 }) => {
   const [password, setPassword] = useState("");
 
   const hundleSubmit = () => {
-    Axios.post("http://localhost:2004/api/v1/auth/login/", {
+    Axios.post("http://localhost:2004/api/auth/login/", {
       email: email,
       password: password,
     })
       .then((response) => {
-        console.log("login successfully");
-        console.log(response);
+        // console.log("login successfully");
+        // console.log(response);
         setEmail("");
         setPassword("");
         localStorage.setItem("token", response.data.token);
@@ -21,16 +21,31 @@ const Login = ({ back1 }) => {
         toast("Loggen in successful!", {
           type: "success",
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 10000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
         });
-        window.location = "/Booking";
+        const hash = window.location.hash;
+        if (hash !== "") {
+          window.location = "/" + hash.split("#")[1];
+        } else {
+          window.location = "makebooking";
+        }
       })
       .catch((error) => {
+        toast("Invalid Inputs", {
+          type: "Worning",
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         console.log(error);
       });
   };

@@ -8,8 +8,8 @@ const Booking = ({ setEmail, setPassword, setNextScreen }) => {
       {/* <HeaderWhenLoggedIn /> */}
 
       <>
-        <div style={{ padding: "2rem" }} className="container fs-5">
-          <h2 className="text-center fs-3">Make Booking</h2>
+        <div style={{ padding: "2rem" }} className="container-fluid fs-5">
+          <h2 className="text-start fs-3">Make Booking</h2>
           <div>
             <MakeBooking setNextScreen={setNextScreen} />
           </div>

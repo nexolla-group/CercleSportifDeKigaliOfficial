@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import Login from "./Login";
 import "./register.css";
-
+import { toast } from "react-toastify";
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
@@ -50,25 +50,42 @@ const Register = () => {
     progress.style.width = "240px";
   };
   const handleSubmit = () => {
-    Axios.post("http://localhost:2004/api/v1/auth/register", {
+    Axios.post("http://localhost:2004/api/auth/register", {
       firstname: firstName,
       lastname: lastName,
       email: email,
       password: password,
     })
       .then((response) => {
-        // console.log("Success");
-        // console.log(response);
-        alert("Signup done successfully!");
+        toast("Signed up successful!", {
+          type: "success",
+          position: "top-right",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setFirstName("");
         setlastName("");
         setEmail("");
         setPassword("");
         localStorage.setItem("token", response.data.token);
-        window.location = ":id/makebooking";
+        window.location = "/";
       })
       .catch((error) => {
         console.log(error);
+        toast("invalid inputs or already have an account", {
+          type: "danger",
+          position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
   return (

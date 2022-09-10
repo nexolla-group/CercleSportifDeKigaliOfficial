@@ -61,7 +61,13 @@ const Home = () => {
               <div className="row">
                 {isLoading ? (
                   <>
-                    <p>Loading..</p>
+                    <div className="container">
+                      <div className="text-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
                   </>
                 ) : (
                   <Cards page="/" playgrounds={searchResult} />

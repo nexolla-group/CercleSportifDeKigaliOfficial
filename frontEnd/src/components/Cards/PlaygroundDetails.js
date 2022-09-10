@@ -24,16 +24,18 @@ const selectImage = () => {
 const PlaygroundDetails = () => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   let { name, description, photo, price, isAvailable } = playgrounds;
   let api = `http://localhost:2004/api/playground/${id}`;
   useEffect(() => {
+    setIsLoading(true);
     Axios.get(api)
       .then((res) => {
-        // console.log(res.data);
+        setIsLoading(false);
         setPlaygrounds(res.data.data);
       })
       .catch((err) => {
+        setIsLoading(true);
         console.log(err);
       });
   }, [api]);
@@ -49,50 +51,65 @@ const PlaygroundDetails = () => {
         }}
       >
         {/* <!-- card left --> */}
-        <div className="product-imgs">
-          <div className="img-display">
-            <div style={{ display: "flex" }} className="img-showcase">
-              <img src={photo} />
-              <img
-                src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/20170830193019-77471-43.jpg"
-                alt="shoe image"
-              />
-              <img
-                src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/soccer-2-1553724-37.jpg"
-                alt="shoe image"
-              />
-              <img
-                src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/football-1442407-38.jpg"
-                alt="shoe image"
-              />
+        {isLoading ? (
+          <>
+            <div className="container">
+              <div className="text-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div onClick={selectImage} className="img-select">
-            <div className="img-item">
-              <a href="#" data-id="1">
-                <img src={photo} alt="shoe image" />
-              </a>
+          </>
+        ) : (
+          <>
+            <div className="product-imgs">
+              <div className="img-display">
+                <div style={{ display: "flex" }} className="img-showcase">
+                  <img className="img-thumbnail" src={photo} />
+                  <img
+                    className="img-thumbnail"
+                    src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/20170830193019-77471-43.jpg"
+                    alt="shoe image"
+                  />
+                  <img
+                    className="img-thumbnail"
+                    src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/soccer-2-1553724-37.jpg"
+                    alt="shoe image"
+                  />
+                </div>
+              </div>
+              <div onClick={selectImage} className="img-select">
+                <div className="img-item">
+                  <a href="#" data-id="1">
+                    <img
+                      className="img-thumbnail"
+                      src={photo}
+                      alt="shoe image"
+                    />
+                  </a>
+                </div>
+                <div className="img-item">
+                  <a href="#" data-id="2">
+                    <img
+                      className="img-thumbnail"
+                      src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/20170830193019-77471-43.jpg"
+                      alt="shoe image"
+                    />
+                  </a>
+                </div>
+                <div className="img-item">
+                  <a href="#" data-id="3">
+                    <img
+                      className="img-thumbnail"
+                      src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/soccer-2-1553724-37.jpg"
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="img-item">
-              <a href="#" data-id="2">
-                <img
-                  src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/20170830193019-77471-43.jpg"
-                  alt="shoe image"
-                />
-              </a>
-            </div>
-            <div className="img-item">
-              <a href="#" data-id="3">
-                <img src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/soccer-2-1553724-37.jpg" />
-              </a>
-            </div>
-            <div className="img-item">
-              <a href="#" data-id="4">
-                <img src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/football-1442407-38.jpg" />
-              </a>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

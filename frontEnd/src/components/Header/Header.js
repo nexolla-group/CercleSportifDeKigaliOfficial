@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
 
+const logOut = () => {
+  localStorage.clear();
+  window.location = "register";
+};
 const Header = () => {
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const T = localStorage.getItem("token");
+    setToken(T);
+  }, [token]);
+
   return (
     <nav
       style={{ height: 250, padding: 50 }}
@@ -88,9 +99,7 @@ const Header = () => {
               textDecoration: "none",
             }}
             className="fs-5 text-light "
-          >
-            <u>Create Account</u>
-          </h3>
+          ></h3>
         </NavLink>
         <div
           style={{
@@ -103,13 +112,27 @@ const Header = () => {
           }}
           class="text-light"
         >
-          <NavLink
-            style={{ padding: "1px 45px" }}
-            to="/register"
-            className="btn btn-warning fs-5"
-          >
-            Login
-          </NavLink>
+          {token !== null && (
+            <>
+              {token !== "" && token !== undefined ? (
+                <>
+                  <small onClick={logOut}>Log out</small>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <NavLink
+                    style={{ padding: "1px 45px" }}
+                    to="/register"
+                    className="btn btn-warning fs-5"
+                  >
+                    <u className="text-light">Create Account</u>
+                    Login
+                  </NavLink>
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
     </nav>
