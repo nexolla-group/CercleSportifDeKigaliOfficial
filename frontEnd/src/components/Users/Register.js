@@ -76,11 +76,11 @@ const Register = () => {
       })
       .catch((error) => {
         console.log(error);
-        toast("invalid inputs or already have an account", {
+        toast("Already have an account!", {
           type: "danger",
           position: "bottom-right",
           autoClose: 1000,
-          hideProgressBar: false,
+          hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,

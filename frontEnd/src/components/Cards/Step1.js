@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { useParams } from "react-router-dom";
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 const Step1 = ({
   hours,
@@ -116,6 +116,17 @@ const Step1 = ({
                 onClick={() => {
                   if (hours.length > 0) {
                     setNextScreen(true);
+                  } else {
+                    toast("Please select hours you want to book", {
+                      type: "worning",
+                      position: "bottom-right",
+                      autoClose: 1000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: false,
+                      progress: undefined,
+                    });
                   }
                 }}
                 style={{ width: "25%", padding: "2" }}
