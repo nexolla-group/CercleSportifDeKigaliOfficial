@@ -1,4 +1,3 @@
-const Category = require("../models/PCategory");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const Time = require("../models/Time");
@@ -11,18 +10,18 @@ exports.getTime = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: time });
 });
 
-// // @desc    Get single category
-// // @route   GET /api/v1/category/:id
+// // @desc    Get single time
+// // @route   GET /api/time/:id
 // // @acess   public
-// exports.getSingleCategory = asyncHandler(async (req, res, next) => {
-//   const category = await Category.findById(req.params.id);
-//   if (!category) {
-//     return next(
-//       new ErrorResponse(`category with id: ${req.params.id} not found`, 404)
-//     );
-//   }
-//   res.status(200).json({ success: true, data: category });
-// });
+exports.getSingleTime = asyncHandler(async (req, res, next) => {
+  const time = await Time.findById(req.params.id);
+  if (!time) {
+    return next(
+      new ErrorResponse(`time with id: ${req.params.id} not found`, 404)
+    );
+  }
+  res.status(200).json({ success: true, data: time });
+});
 
 // @desc Create time
 // POST /api/time
@@ -32,36 +31,36 @@ exports.createTime = asyncHandler(async (req, res, next) => {
   res.status(201).json({ success: true, data: time });
 });
 
-// exports.updateCategory = asyncHandler(async (req, res, next) => {
-//   const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
-//     new: true,
-//     runValidators: true,
-//   });
-//   if (!category) {
-//     return next(
-//       new ErrorResponse(`category with id: ${req.params.id} not found`, 404)
-//     );
-//   }
-//   res.status(200).json({
-//     success: true,
-//     data: {
-//       msg: `category with id: ${req.params.id} has already updated`,
-//       updated_data: category,
-//     },
-//   });
-// });
+exports.updateTime = asyncHandler(async (req, res, next) => {
+  const time = await Time.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!time) {
+    return next(
+      new ErrorResponse(`time with id: ${req.params.id} not found`, 404)
+    );
+  }
+  res.status(200).json({
+    success: true,
+    data: {
+      msg: `time with id: ${req.params.id} has updated successfully`,
+      updated_data: time,
+    },
+  });
+});
 
-// exports.deleteCategory = asyncHandler(async (req, res, next) => {
-//   const category = await Category.findByIdAndDelete(req.params.id);
-//   if (!category) {
-//     return next(
-//       new ErrorResponse(`category with id: ${req.params.id} not found`, 404)
-//     );
-//   }
-//   res.status(200).json({
-//     success: true,
-//     data: {
-//       msg: "Category with id: " + req.params.id + " Has already deleted",
-//     },
-//   });
-// });
+exports.deleteTime = asyncHandler(async (req, res, next) => {
+  const time = await Time.findByIdAndDelete(req.params.id);
+  if (!time) {
+    return next(
+      new ErrorResponse(`time with id: ${req.params.id} not found`, 404)
+    );
+  }
+  res.status(200).json({
+    success: true,
+    data: {
+      msg: "Time with id: " + req.params.id + " Has already deleted",
+    },
+  });
+});
