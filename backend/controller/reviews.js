@@ -53,7 +53,7 @@ exports.addReview = asyncHandler(async (req, res, next) => {
   if (!playground) {
     return next(
       new ErrorResponse(
-        `No playground with the id of ${req.params.bootcampId}`,
+        `No playground with the id of ${req.params.playgroundId}`,
         404
       )
     );
