@@ -10,7 +10,7 @@ const RecentlyAddedPlaygrounds = () => {
   const [playgrounds, setPlaygrounds] = useState([]);
 
   const api = `http://localhost:2004/api/playground/`;
-  useEffect(() => {
+  const fetchPlayground = () => {
     Axios.get(api)
       .then((res) => {
         setPlaygrounds(res.data.data);
@@ -18,9 +18,11 @@ const RecentlyAddedPlaygrounds = () => {
       .catch((err) => {
         console.log("problem getting playgrounds", err);
       });
-  }, [api]);
+  };
+  useEffect(() => {
+    fetchPlayground();
+  }, []);
   const handleDelete = async (id) => {
-    console.log(id);
     try {
       await Axios.delete(
         `http://localhost:2004/api/playGround/${id}?&&token=${token}`
@@ -152,7 +154,7 @@ const RecentlyAddedPlaygrounds = () => {
                 className="col col-1 p-2 text-end"
               >
                 <p className="fs-5 text-success">
-                  <ViewUpdatePlayground />
+                  <ViewUpdatePlayground playground={item} />
                 </p>
               </div>
               <div

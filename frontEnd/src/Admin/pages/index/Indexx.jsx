@@ -12,6 +12,7 @@ export default function Index() {
 
     navigation.classList.toggle("active");
   };
+
   return (
     <>
       <div

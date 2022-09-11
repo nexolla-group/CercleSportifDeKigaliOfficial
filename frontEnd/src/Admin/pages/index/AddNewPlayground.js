@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-const AddNewPlayGround = () => {
+const AddNewPlayGround = (fetchPlayground) => {
   const [name, setName] = useState("");
   const [getcategory, setGetcategory] = useState([]);
   const [category, setCategory] = useState("");
@@ -32,6 +32,7 @@ const AddNewPlayGround = () => {
         setCategory("");
         setPrice("");
         setDescription("");
+        fetchPlayground();
         console.log("data saved successfully", response);
       })
       .catch((error) => {

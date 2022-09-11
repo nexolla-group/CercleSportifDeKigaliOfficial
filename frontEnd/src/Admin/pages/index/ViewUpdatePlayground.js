@@ -2,18 +2,23 @@ import React from "react";
 import UpdatePlayGround from "./UpdatePlayGround";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
-const ViewUpdatePlayground = () => {
+const ViewUpdatePlayground = ({ playground }) => {
+  // console.log(playground._id);
+
   return (
     <>
       {/* !-- Button trigger modal -- */}
-      <p data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <p
+        data-bs-toggle="modal"
+        data-bs-target={`#staticBackdrop${playground._id}`}
+      >
         <ModeEditOutlineOutlinedIcon />
       </p>
 
       {/* -- Modal -- */}
       <div
         className="modal fade"
-        id="staticBackdrop"
+        id={`staticBackdrop${playground._id}`}
         data-bs-backdrop="static"
         data-bs-keyboard="false"
         tabindex="-1"
@@ -33,21 +38,10 @@ const ViewUpdatePlayground = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
-              <UpdatePlayGround />
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-dark"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Update
-              </button>
-            </div>
+
+            <UpdatePlayGround item={playground} />
+
+            {/* modal */}
           </div>
         </div>
       </div>
