@@ -1,14 +1,13 @@
-import styles from "./category.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DeleteForever } from "@material-ui/icons";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 export default function Category() {
   const [getCategory, setGetCategory] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc1Mjg4NiwiZXhwIjoxNjY1MzQ0ODg2fQ.73prhBNc1AodAKAw34tTqFSVc4JFBkLhNWj-jNPTARM";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzM…TM5fQ.23Yg0L7jqfhHo9hItVRHfZgZbYDxxAVsDJBSZvb8uvI";
 
   let linkApi = "http://localhost:2004/api/groundCategory";
   const fetchCategory = async () => {
@@ -58,70 +57,73 @@ export default function Category() {
   };
   return (
     <div>
-      <div className={styles.container}>
-        <div className={styles.topx}>
-          <h2>Playground categories</h2>
-        </div>
-        <div className="categoryA my-5">
-          <div
-            className="row row-cols-1 row-cols-md-3 g-4"
-            style={{ width: "40rem" }}
-          >
-            {getCategory.map((cat, i) => (
-              <>
-                <div
-                  className="card border-primary my-2 mx-1"
-                  style={{ width: "18rem" }}
-                >
-                  <div
-                    className="card-header d-flex justify-content-between "
-                    key={i}
-                  >
-                    {cat.name}
-                    <DeleteForever
-                      className="text-danger"
-                      onClick={() => handleDelete(cat._id)}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </div>
-                  <div className="card-body py-2">
-                    <h5 className="card-title">Description</h5>
-                    <p className="card-text">
-                      {cat.description
-                        ? cat.description
-                        : "No decription mentioned!"}
-                    </p>
-                  </div>
-                </div>
-              </>
-            ))}
+      <div style={{ padding: "2rem" }} className="container-fluid">
+        <div className="row">
+          <div className="col col-lg-6 col-md-12 col-sm-12 col-xs-12  ">
+            <div class="card bg-light bg-gradient rounded shadow-sm">
+              <div class="card-header fw-bold ">
+                Recently Added Playground Categories
+              </div>
+              <div style={{ height: "500px" }} class="card-body overflow-auto">
+                {getCategory.map((cat, i) => (
+                  <>
+                    <div className="card border-outline-primary m-2 shadow-sm">
+                      <div className="card-header" key={i}>
+                        <div className="row">
+                          <div className="col col-9 text-start text-black fw-bold">
+                            {cat.name}
+                          </div>
+                          <div className="col col-3 text-end">
+                            <DeleteOutlineIcon
+                              className="text-danger"
+                              onClick={() => handleDelete(cat._id)}
+                              style={{ cursor: "pointer" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body py-2">
+                        <h5 className="card-title">Description</h5>
+                        <p className="card-text">
+                          {cat.description
+                            ? cat.description
+                            : "No decription mentioned!"}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
+            </div>
           </div>
-          <div>
-            <span style={{ fontSize: "1rem", textDecoration: "underline" }}>
-              <h5 style={{ fontSize: "20px", fontWeight: "700" }}>
-                Add playground category
-              </h5>
-            </span>
-            <form className="newCatForm">
-              <div className="newCatItem">
-                <label> Category name</label>
-                <input
-                  type="text"
-                  placeholder="Category name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="newCatItem">
-                <label> Description</label>
-                <input
-                  type="text"
-                  placeholder="Category Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <button className="newCatButton" onClick={handleCreate}>
+
+          <div className="col col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+            <h5 className="fs-5 fw-bold ">Add playground category</h5>
+            <hr />
+
+            <form className="bg-light bg-gradient rounded shadow-sm">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Category name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Category Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+
+              <button
+                className="btn btn-outline-primary"
+                onClick={handleCreate}
+              >
                 Create
               </button>
             </form>
