@@ -60,7 +60,7 @@ exports.deleteTime = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: {
-      msg: "Time with id: " + req.params.id + " Has already deleted",
+      msg: "Time with id: " + req.params.id + " Has deleted",
     },
   });
 });

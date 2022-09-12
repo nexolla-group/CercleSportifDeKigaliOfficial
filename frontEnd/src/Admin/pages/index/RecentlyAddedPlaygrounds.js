@@ -34,7 +34,7 @@ const RecentlyAddedPlaygrounds = () => {
   };
   let display;
   if (playgrounds) {
-    console.log(playgrounds);
+    // console.log(playgrounds);
     display = playgrounds.map((item, index) => {
       return (
         <div key={index} className="row mb-2">

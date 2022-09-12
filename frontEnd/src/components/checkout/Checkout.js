@@ -1,5 +1,4 @@
 import React from "react";
-import HeaderWhenLoggedIn from "../Header/HeaderWhenLoggedIn";
 const Checkout = () => {
   return (
     <>
