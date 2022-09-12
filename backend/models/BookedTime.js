@@ -1,19 +1,23 @@
 const mongoose = require("mongoose");
 
-const TimeSchema = new mongoose.Schema({
-  playground: {
+const BookedTimeSchema = new mongoose.Schema({
+  playgroundId: {
     type: mongoose.Schema.ObjectId,
     ref: "PlayGround",
     required: true,
   },
-  startTime: {
+  day: {
+    type: String,
+    required: [true, "provide day"],
+  },
+  from: {
     type: String,
     required: [true, "provide starting hour"],
   },
-  endTime: {
+  to: {
     type: String,
     required: [true, "Provide at which time playground will be free"],
   },
 });
 
-module.exports = mongoose.model("Time", TimeSchema);
+module.exports = mongoose.model("BookedTime", BookedTimeSchema);

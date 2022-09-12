@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Booking from "../../Pages/Booking";
 
 const MakeBooking = ({ setNextScreen, hours, date }) => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
 
-  let { name, description, photo, price, isAvailable } = playgrounds;
+  let { name, price } = playgrounds;
   let api = `http://localhost:2004/api/playground/${id}`;
   useEffect(() => {
     Axios.get(api)
@@ -24,7 +24,7 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
   const [token, setToken] = useState(null);
   const getToken = async () => {
     const token = await localStorage.getItem("token");
-    console.log("token ", token);
+    // console.log("token ", token);
     if (token) {
       setToken(token);
       setChecking(false);

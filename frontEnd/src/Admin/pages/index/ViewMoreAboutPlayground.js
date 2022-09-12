@@ -3,7 +3,7 @@ import UpdatePlayGround from "./UpdatePlayGround";
 import ReadMoreOutlinedIcon from "@mui/icons-material/ReadMoreOutlined";
 
 const ViewMoreAboutPlayground = ({ item }) => {
-  console.log(item);
+  // console.log(item);
   return (
     <>
       {/* !-- Button trigger modal -- */}

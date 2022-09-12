@@ -50,7 +50,7 @@ function App() {
           <Route path="/admin/user/:userId" element={<User />} />
           <Route path="/admin/newUser" element={<NewUser />} />
           <Route path="/admin/playground" element={<ProductList />} />
-          <Route path="/admin/register" element={<Test1 />} />
+
           <Route
             path="/admin/playground/:playgroundId"
             element={<Playground />}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { toast } from "react-toastify";
 
@@ -13,12 +13,13 @@ const Login = ({ back1 }) => {
     })
       .then((response) => {
         // console.log("login successfully");
-        // console.log(response);
+        // console.log("RESPONSE: ", response.data.user);
+
         setEmail("");
         setPassword("");
         localStorage.setItem("token", response.data.token);
 
-        toast("Loggen in successful!", {
+        toast("Logged in successful!", {
           type: "success",
           position: "top-right",
           autoClose: 10000,
@@ -29,6 +30,7 @@ const Login = ({ back1 }) => {
           progress: undefined,
         });
         const hash = window.location.hash;
+
         if (hash !== "") {
           window.location = "/" + hash.split("#")[1];
         } else {
@@ -36,7 +38,7 @@ const Login = ({ back1 }) => {
         }
       })
       .catch((error) => {
-        toast("Invalid Inputs", {
+        toast("Invalid Credentials", {
           type: "Worning",
           position: "top-right",
           autoClose: 2000,

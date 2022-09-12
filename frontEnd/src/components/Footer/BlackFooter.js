@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Facebook,
-  InsertInvitation,
-  Instagram,
-  LinkedIn,
-  Twitter,
-} from "@material-ui/icons";
+import { Facebook, Instagram, LinkedIn, Twitter } from "@material-ui/icons";
 const BlackFooter = () => {
   return (
     <>

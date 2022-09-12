@@ -15,7 +15,7 @@ const Step1 = ({
 }) => {
   const { price } = playgrounds;
   const { id } = useParams();
-  const api = `http://localhost:2004/api/v1/playground/${id}`;
+  const api = `http://localhost:2004/api/playground/${id}`;
 
   useEffect(() => {
     Axios.get(api)

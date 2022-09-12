@@ -1,21 +1,38 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-const AddNewPlayGround = (fetchPlayground) => {
+const AddNewPlayGround = () => {
   const [name, setName] = useState("");
   const [getcategory, setGetcategory] = useState([]);
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [fetchPlayground, setFetchPlayground] = useState([]);
+  const [playground, setPlayground] = useState("");
+  const [getHours, setGetHours] = useState([]);
+  console.log(startTime, endTime, playground);
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc4NzU4MSwiZXhwIjoxNjY1Mzc5NTgxfQ.c2dFzkb-B2Smb2QOtAnlx2FQ-Cmdl2nl57Z-6qZaeV4";
+  const fetchHours = () => {
+    Axios.get("http://localhost:2004/api/time")
+      .then((res) => setGetHours(res.data.data))
+      .catch((error) => console.log(error));
+  };
+  // console.log(getHours);
   useEffect(() => {
     Axios.get("http://localhost:2004/api/groundCategory")
       .then((res) => {
         setGetcategory(res.data.data);
       })
       .catch((e) => console.log(e));
+    Axios.get("http://localhost:2004/api/playGround")
+      .then((response) => {
+        setFetchPlayground(response.data.data);
+      })
+      .catch((err) => console.log(err));
+    fetchHours();
   }, []);
 
   const savePlayground = () => {
@@ -32,13 +49,28 @@ const AddNewPlayGround = (fetchPlayground) => {
         setCategory("");
         setPrice("");
         setDescription("");
-        fetchPlayground();
+
         console.log("data saved successfully", response);
       })
       .catch((error) => {
         console.log("problem of saving data", error);
       });
-    console.log(name, description, category, price);
+  };
+  const handleSaveHour = async () => {
+    await Axios.post("http://localhost:2004/api/time", {
+      token,
+      playground,
+      startTime,
+      endTime,
+    })
+      .then((res) => {
+        setStartTime("");
+        setEndTime("");
+        setPlayground("");
+        fetchHours();
+        console.log("Hour saved!!!!!!!!!" + res);
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -145,19 +177,25 @@ const AddNewPlayGround = (fetchPlayground) => {
                         type="time"
                         aria-label="First name"
                         class="form-control"
+                        value={startTime}
+                        onChange={(e) => setStartTime(e.target.value)}
                         placeholder="from"
                       />
                       <input
                         type="time"
                         aria-label="Last name"
                         class="form-control"
+                        value={endTime}
                         placeholder="to"
+                        onChange={(e) => setEndTime(e.target.value)}
                       />
                       <span class="input-group-text">To</span>
+
+                      {/* setect playground */}
                     </div>
                   </div>
                 </div>
-                <p className="fs-4"> Pick Unavailable Hours</p>
+                {/* <p className="fs-4"> Pick Unavailable Hours</p>
                 <div className="row">
                   <div className="col">
                     <div class="input-group">
@@ -177,6 +215,46 @@ const AddNewPlayGround = (fetchPlayground) => {
                       <span class="input-group-text">To</span>
                     </div>
                   </div>
+                </div> */}
+                <p className="fs-4"> Pick Playground</p>
+                <div className="row">
+                  <div className="col">
+                    <div class="input-group">
+                      <select
+                        value={playground}
+                        onChange={(e) => setPlayground(e.target.value)}
+                        className="form-select form-select-lg mb-3"
+                      >
+                        <option className="text-dark" selected>
+                          Select Playground
+                        </option>
+                        {fetchPlayground.map((playg, j) => (
+                          <option value={playg._id} key={j}>
+                            {playg.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <button style={{ width: "100%" }} onClick={handleSaveHour}>
+                      {" "}
+                      Add hour
+                    </button>
+                  </div>
+                </div>
+                {/* display selected hours */}
+                <div class="row m-2">
+                  {getHours.map((item, index) => (
+                    <div key={index} class="col-6 col-sm-3 mb-2">
+                      <button
+                        className={`btn btn-outline-secondary text-dark mr-5 
+                        `}
+                      >
+                        {item.startTime}
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

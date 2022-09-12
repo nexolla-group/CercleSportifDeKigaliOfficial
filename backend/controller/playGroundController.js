@@ -4,14 +4,14 @@ const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 // @desc    Get all playground
-// @route   GET /api/v1/playground
+// @route   GET /api/playground
 // @acess   public
 exports.getPlayGround = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
 // @desc    Get single playground
-// @route   GET /api/v1/playground/:id
+// @route   GET /api/playground/:id
 // @acess   public
 exports.getSinglePlayGround = asyncHandler(async (req, res, next) => {
   // try {
@@ -68,7 +68,7 @@ exports.deletePlayGround = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Upload photo for playground
-// @route     PUT /api/v1/playground/:id/photo
+// @route     PUT /api/playground/:id/photo
 // @access    Private
 exports.playgroundPhotoUpload = asyncHandler(async (req, res, next) => {
   const playground = await PlayGround.findById(req.params.id);
