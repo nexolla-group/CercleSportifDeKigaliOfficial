@@ -7,7 +7,7 @@ export default function Category() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzM…Tc2fQ.4z3LJhKd0TqnEnybHlO414CU5LkK7RZhrHHZTPV8zXI";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWVmYjE2Mzc2YTY0ZDcyODVmNTU2NSIsImlhdCI6MTY2Mjk3NTUyMCwiZXhwIjoxNjY1NTY3NTIwfQ.D2VV5n4ZDpM4e91fIVj7obpqJ16G4556vxePDL5eHOM";
 
   let linkApi = "http://localhost:2004/api/groundCategory";
   const fetchCategory = async () => {
@@ -82,14 +82,9 @@ export default function Category() {
                           </div>
                         </div>
                       </div>
-                      <div className="card-body py-2">
-                        <h5 className="card-title">Description</h5>
-                        <p className="card-text">
-                          {cat.description
-                            ? cat.description
-                            : "No decription mentioned!"}
-                        </p>
-                      </div>
+                      {/* <div className="card-body py-2">
+                        <p className="card-text">{cat.description}</p>
+                      </div> */}
                     </div>
                   </>
                 ))}
@@ -111,14 +106,14 @@ export default function Category() {
                 required
               />
 
-              <input
+              {/* <input
                 className="form-control"
                 type="text"
                 placeholder="Category Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
-              />
+              /> */}
 
               <button
                 className="btn btn-outline-primary"

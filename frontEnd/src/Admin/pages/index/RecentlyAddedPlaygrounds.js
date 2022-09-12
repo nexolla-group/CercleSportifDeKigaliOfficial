@@ -6,7 +6,7 @@ import ViewUpdatePlayground from "./ViewUpdatePlayground";
 import ViewMoreAboutPlayground from "./ViewMoreAboutPlayground";
 const RecentlyAddedPlaygrounds = () => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc4NzU4MSwiZXhwIjoxNjY1Mzc5NTgxfQ.c2dFzkb-B2Smb2QOtAnlx2FQ-Cmdl2nl57Z-6qZaeV4";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWVmYjE2Mzc2YTY0ZDcyODVmNTU2NSIsImlhdCI6MTY2Mjk4MDc1MywiZXhwIjoxNjY1NTcyNzUzfQ.gymUlsaf43TMKSFm1qzyPUCpplAAUtw4ZMbTrOPyqmw";
   const [playgrounds, setPlaygrounds] = useState([]);
 
   const api = `http://localhost:2004/api/playground/`;

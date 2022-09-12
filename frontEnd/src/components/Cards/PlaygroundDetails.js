@@ -25,7 +25,8 @@ const PlaygroundDetails = () => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  let { name, description, photo, price, isAvailable } = playgrounds;
+  let { name, description, photo, photo2, photo3, price, isAvailable } =
+    playgrounds;
   let api = `http://localhost:2004/api/playground/${id}`;
   useEffect(() => {
     setIsLoading(true);
@@ -67,14 +68,10 @@ const PlaygroundDetails = () => {
               <div className="img-display">
                 <div style={{ display: "flex" }} className="img-showcase">
                   <img className="img-thumbnail" src={photo} />
+                  <img className={photo2} />
                   <img
                     className="img-thumbnail"
-                    src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/20170830193019-77471-43.jpg"
-                    alt="shoe image"
-                  />
-                  <img
-                    className="img-thumbnail"
-                    src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/soccer-2-1553724-37.jpg"
+                    src={photo3}
                     alt="shoe image"
                   />
                 </div>
@@ -93,17 +90,14 @@ const PlaygroundDetails = () => {
                   <a href="#" data-id="2">
                     <img
                       className="img-thumbnail"
-                      src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/20170830193019-77471-43.jpg"
+                      src={photo2}
                       alt="shoe image"
                     />
                   </a>
                 </div>
                 <div className="img-item">
                   <a href="#" data-id="3">
-                    <img
-                      className="img-thumbnail"
-                      src="https://trials.vevs.website/web-demo/playground-website/1/app/web/upload/medium/soccer-2-1553724-37.jpg"
-                    />
+                    <img className="img-thumbnail" src={photo3} />
                   </a>
                 </div>
               </div>

@@ -7,8 +7,8 @@ const Categories = ({ playgrounds, setSearchResult }) => {
     const res = ["All"];
     for (let i = 0; i < playgrounds.length; i++) {
       console.log(i);
-      if (res.indexOf(playgrounds[i].category.name) === -1) {
-        res.push(playgrounds[i].category.name);
+      if (res.indexOf(playgrounds[i].category) === -1) {
+        res.push(playgrounds[i].category);
       }
     }
     setCategory(res);
@@ -17,9 +17,7 @@ const Categories = ({ playgrounds, setSearchResult }) => {
     if (category == "All") {
       setSearchResult(playgrounds);
     } else {
-      setSearchResult(
-        playgrounds.filter((item) => item.category.name == category)
-      );
+      setSearchResult(playgrounds.filter((item) => item.category == category));
     }
   };
   return (
