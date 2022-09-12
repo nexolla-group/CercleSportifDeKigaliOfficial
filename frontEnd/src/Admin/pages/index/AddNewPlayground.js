@@ -12,7 +12,6 @@ const AddNewPlayGround = () => {
   const [fetchPlayground, setFetchPlayground] = useState([]);
   const [playground, setPlayground] = useState("");
   const [getHours, setGetHours] = useState([]);
-  console.log(startTime, endTime, playground);
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc4NzU4MSwiZXhwIjoxNjY1Mzc5NTgxfQ.c2dFzkb-B2Smb2QOtAnlx2FQ-Cmdl2nl57Z-6qZaeV4";
   const fetchHours = () => {
@@ -245,7 +244,7 @@ const AddNewPlayGround = () => {
                 <div class="row m-2">
                   {getHours.map((item, index) => (
                     <div key={index} class="col-6 col-sm-3 mb-2">
-                      {item.playground == playground ? (
+                      {item.playground === playground ? (
                         <button
                           className={`btn btn-outline-secondary text-dark mr-5 
                         `}

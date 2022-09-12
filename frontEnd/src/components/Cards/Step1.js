@@ -27,6 +27,7 @@ const Step1 = ({
         console.log(err);
       });
   }, [api]);
+  // console.log(date);
   return (
     <>
       <div
