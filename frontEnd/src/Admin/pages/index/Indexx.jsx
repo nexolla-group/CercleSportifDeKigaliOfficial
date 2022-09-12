@@ -23,10 +23,10 @@ export default function Index() {
         {/* <TopBarADmin /> */}
         <MainAdmin />
         <div className="row">
-          <div className="col col-lg-5 col-sm-12 col-xs-12 mt-2">
+          <div className="col col-lg-4 col-sm-12 col-xs-12 mt-2">
             <Reviews />
           </div>
-          <div className="col col-lg-7 col-sm-12 col-xs-12">
+          <div className="col col-lg-8 mt-2 col-sm-12 col-xs-12">
             <AddNewPlayGround />
           </div>
         </div>

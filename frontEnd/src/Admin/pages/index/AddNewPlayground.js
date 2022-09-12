@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import AlarmAddRoundedIcon from "@mui/icons-material/AlarmAddRounded";
+import styles from "./addPlayground.module.css";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
 const AddNewPlayGround = () => {
   const [name, setName] = useState("");
   const [getcategory, setGetcategory] = useState([]);
@@ -236,25 +240,43 @@ const AddNewPlayGround = () => {
                     </div>
                   </div>
                   <div className="row">
-                    <button style={{ width: "100%" }} onClick={handleSaveHour}>
-                      Add hour
-                    </button>
+                    <div className="col  col-12">
+                      <button
+                        onClick={handleSaveHour}
+                        className="btn rounded shadow-sm text-light bg-black fs-6 w-100 g-5"
+                      >
+                        Add Hour
+                        <span>
+                          <AlarmAddRoundedIcon />
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 {/* display selected hours */}
-                <div class="row m-2">
-                  {getHours.map((item, index) => (
-                    <div key={index} class="col-6 col-sm-3 mb-2">
-                      {item.playground == playground ? (
-                        <button
-                          className={`btn btn-outline-secondary text-dark mr-5 
-                        `}
-                        >
-                          {item.startTime}
-                        </button>
-                      ) : null}
-                    </div>
-                  ))}
+                <div class="row m-2 h-50 overflow-auto">
+                  <div class="col col-12 mb-2 ">
+                    {getHours.map((item, index) => (
+                      <>
+                        {item.playground === playground ? (
+                          <div className="card border-outline-primary m-2 shadow-sm">
+                            <div key={index} className="card-header">
+                              <div className="row">
+                                <div className="col col-9 text-start text-black fw-bold pe-auto77y">
+                                  {`${item.startTime}-${item.endTime}`}
+                                </div>
+                                <div className="col col-3 text-end">
+                                  <DeleteOutlineIcon
+                                    style={{ color: "red", cursor: "pointer" }}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+                      </>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -265,7 +287,7 @@ const AddNewPlayGround = () => {
               <div className="col col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
                 <button
                   onClick={savePlayground}
-                  className="btn text-light bg-dark"
+                  className="btn btn-dark text-light"
                 >
                   Add Playground
                 </button>

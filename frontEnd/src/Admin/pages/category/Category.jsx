@@ -82,9 +82,6 @@ export default function Category() {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="card-body py-2">
-                        <p className="card-text">{cat.description}</p>
-                      </div> */}
                     </div>
                   </>
                 ))}

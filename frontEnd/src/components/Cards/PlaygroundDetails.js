@@ -72,7 +72,7 @@ const PlaygroundDetails = () => {
                   <img
                     className="img-thumbnail"
                     src={photo3}
-                    alt="shoe image"
+                    alt="Playground Image"
                   />
                 </div>
               </div>
@@ -82,7 +82,7 @@ const PlaygroundDetails = () => {
                     <img
                       className="img-thumbnail"
                       src={photo}
-                      alt="shoe image"
+                      alt="Playground Image "
                     />
                   </a>
                 </div>
@@ -91,7 +91,7 @@ const PlaygroundDetails = () => {
                     <img
                       className="img-thumbnail"
                       src={photo2}
-                      alt="shoe image"
+                      alt="Playground Image"
                     />
                   </a>
                 </div>

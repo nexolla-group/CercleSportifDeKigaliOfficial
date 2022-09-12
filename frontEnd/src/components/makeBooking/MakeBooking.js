@@ -73,7 +73,7 @@ const MakeBooking = ({ setNextScreen }) => {
           </div>
         </form>
         <div className="container-fluid p5">
-          <div className="row">
+          <div className="row mt-3">
             <div className="col col-4 text-start">
               <button
                 onClick={() => setNextScreen(false)}

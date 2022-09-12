@@ -18,7 +18,7 @@ const Cards = ({ playgrounds, page }) => {
             className={`${styles.cards} d-flex flex-column justify-contnt-center`}
           >
             <img
-              src={item.photo2}
+              src={item.photo}
               alt=""
               className={`${styles.img} img-fluid`}
             />
