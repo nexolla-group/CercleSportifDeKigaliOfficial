@@ -81,6 +81,7 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 const sendTokenResponse = (user, statusCode, res) => {
   // create token
   const token = user.getSignedJwtToken();
+  const userRole = user.role;
 
   const options = {
     expires: new Date(
@@ -94,7 +95,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token });
+    .json({ success: true, token, userRole });
 };
 
 // @desc      Update user details

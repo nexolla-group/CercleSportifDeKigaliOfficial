@@ -66,7 +66,6 @@ const AddNewPlayGround = () => {
       .then((res) => {
         setStartTime("");
         setEndTime("");
-        setPlayground("");
         fetchHours();
         console.log("Hour saved!!!!!!!!!" + res);
       })
@@ -168,8 +167,8 @@ const AddNewPlayGround = () => {
                 </div>
               </div>
               <div className="col col-lg-5 col-sm-12 col-xs-12 ">
-                <p className="fs-4"> Pick Available Hours</p>
-                <div className="row mb-3">
+                <p className="fs-3"> Pick Available Hours</p>
+                <div className="row mb-2">
                   <div className="col">
                     <div class="input-group">
                       <span class="input-group-text">From</span>
@@ -216,7 +215,7 @@ const AddNewPlayGround = () => {
                     </div>
                   </div>
                 </div> */}
-                <p className="fs-4"> Pick Playground</p>
+
                 <div className="row">
                   <div className="col">
                     <div class="input-group">
@@ -238,7 +237,6 @@ const AddNewPlayGround = () => {
                   </div>
                   <div className="row">
                     <button style={{ width: "100%" }} onClick={handleSaveHour}>
-                      {" "}
                       Add hour
                     </button>
                   </div>
@@ -247,12 +245,14 @@ const AddNewPlayGround = () => {
                 <div class="row m-2">
                   {getHours.map((item, index) => (
                     <div key={index} class="col-6 col-sm-3 mb-2">
-                      <button
-                        className={`btn btn-outline-secondary text-dark mr-5 
+                      {item.playground == playground ? (
+                        <button
+                          className={`btn btn-outline-secondary text-dark mr-5 
                         `}
-                      >
-                        {item.startTime}
-                      </button>
+                        >
+                          {item.startTime}
+                        </button>
+                      ) : null}
                     </div>
                   ))}
                 </div>
