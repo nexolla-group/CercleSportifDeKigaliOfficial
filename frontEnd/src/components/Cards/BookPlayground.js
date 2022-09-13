@@ -9,9 +9,9 @@ const BookPlayground = () => {
   const { id } = useParams();
   const [playgrounds, setPlaygrounds] = useState([]);
   const [date, setDate] = useState(new Date());
-  const [hours, setHours] = useState([]);
-  const [getHours, setGetHours] = useState([]);
   const [nextScreen, setNextScreen] = useState(false);
+  const [selectedHours, setSelectedHours] = useState([]);
+  const [availableHours, setAvailableHours] = useState([]);
 
   const api = `http://localhost:2004/api/playground/${id}`;
   const { name, description, photo, price, isAvailable } = playgrounds;
@@ -27,36 +27,39 @@ const BookPlayground = () => {
       });
     Axios.get("http://localhost:2004/api/time")
       .then((res) => {
-        // if (res.data.playground == id) {
-        setGetHours(res.data.data);
-        // }
+        setAvailableHours(res.data.data);
       })
       .catch((e) => console.log(e));
   }, [api]);
+
   const handleHours = (x) => {
-    const time = getHours.find(
+    const time = selectedHours.find(
       (item) => item.startTime == x.startTime && item.endTime == x.endTime
     );
     if (time) {
-      setHours(
-        hours.filter(
-          (item) => item.startTime != x.startTime && item.endTime != x.endTime
+      setSelectedHours(
+        selectedHours.filter(
+          (item) => item.startTime !== x.startTime && item.endTime !== x.endTime
         )
       );
     } else {
-      setHours([...hours, x]);
+      setSelectedHours([...selectedHours, x]);
     }
   };
 
   return (
     <>
       {nextScreen ? (
-        <MakeBooking setNextScreen={setNextScreen} hours={hours} date={date} />
+        <MakeBooking
+          setNextScreen={setNextScreen}
+          selectedHours={selectedHours}
+          date={date}
+        />
       ) : (
         <Step1
-          hours={hours}
+          availableHours={availableHours}
+          selectedHours={selectedHours}
           handleHours={handleHours}
-          getHours={getHours}
           playgrounds={playgrounds}
           setPlaygrounds={setPlaygrounds}
           setNextScreen={setNextScreen}

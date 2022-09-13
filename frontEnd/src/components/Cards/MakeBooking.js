@@ -3,7 +3,7 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import Booking from "../../Pages/Booking";
 
-const MakeBooking = ({ setNextScreen, hours, date }) => {
+const MakeBooking = ({ setNextScreen, selectedHours, date }) => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
 
@@ -57,12 +57,14 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
                       <td>{name}</td>
                       <td>{date.toString()}</td>
                       <td>
-                        {hours.map((x, i) => (
-                          <p key={i}>{x}</p>
-                        ))}
+                        <>
+                          {selectedHours.map((x, i) => (
+                            <p key={i}>{x}</p>
+                          ))}
+                        </>
                       </td>
                       <td>
-                        {price * hours.length} <b>Rwf</b>
+                        {price * selectedHours.length} <b>Rwf</b>
                       </td>
                     </tr>
                   </tbody>
@@ -87,7 +89,7 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {price * hours.length} <b>Rwf</b>
+                {price * selectedHours.length} <b>Rwf</b>
               </div>
             </div>
             <div
@@ -106,7 +108,7 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {(price * hours.length * 18) / 100} <b>Rwf</b>
+                {(price * selectedHours.length * 18) / 100} <b>Rwf</b>
               </div>
             </div>
             <div
@@ -125,7 +127,8 @@ const MakeBooking = ({ setNextScreen, hours, date }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {price * hours.length + (price * hours.length * 18) / 100}{" "}
+                {price * selectedHours.length +
+                  (price * selectedHours.length * 18) / 100}{" "}
                 <b>Rwf</b>
               </div>
             </div>

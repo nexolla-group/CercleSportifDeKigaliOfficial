@@ -4,9 +4,9 @@ import Axios from "axios";
 import { toast } from "react-toastify";
 
 const Step1 = ({
-  hours,
+  availableHours,
+  selectedHours,
   handleHours,
-  getHours,
   playgrounds,
   setPlaygrounds,
   setNextScreen,
@@ -77,13 +77,19 @@ const Step1 = ({
             className="container text-center text-dark"
           >
             <div className="row m-2">
-              {getHours.map((item, index) => (
+              {availableHours.map((item, index) => (
                 <div key={index} className="col-6 col-sm-3 mb-2">
                   <button
                     onClick={() => handleHours(item)}
                     style={{ width: "100%" }}
                     className={`btn btn-outline-secondary text-dark ${
-                      getHours.find((x) => x == item) ? "bg-success" : ""
+                      selectedHours.find(
+                        (x) =>
+                          x.startTime == item.startTime &&
+                          x.endTime == x.endTime
+                      )
+                        ? "bg-success"
+                        : ""
                     }`}
                   >
                     {`${item.startTime}-${item.endTime}`}
@@ -102,7 +108,7 @@ const Step1 = ({
             </div>
           </div>
           <div className="col">
-            <div className="p-3 ">{price * hours.length}</div>
+            <div className="p-3 ">{price * selectedHours.length}</div>
           </div>
         </div>
         <div className="row gx-5">
@@ -115,7 +121,7 @@ const Step1 = ({
             <div className="p-3 ">
               <button
                 onClick={() => {
-                  if (hours.length > 0) {
+                  if (selectedHours.length > 0) {
                     setNextScreen(true);
                   } else {
                     toast("Please select hours you want to book", {

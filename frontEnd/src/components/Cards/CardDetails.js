@@ -72,19 +72,24 @@ const CardDetails = () => {
                 </h3>
               </div>
               <div className="col col-6 text-end">
-                {(() => {
-                  if (isAvailable) {
-                    return (
-                      <div className={` fs-6 badge bg-success `}>Available</div>
-                    );
-                  } else {
-                    return (
-                      <div className={` fs-6 badge bg-danger `}>
-                        Not available
-                      </div>
-                    );
-                  }
-                })()}
+                <>
+                  {" "}
+                  {(() => {
+                    if (isAvailable) {
+                      return (
+                        <div className={` fs-6 badge bg-success `}>
+                          Available
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className={` fs-6 badge bg-danger `}>
+                          Not available
+                        </div>
+                      );
+                    }
+                  })()}
+                </>
               </div>
             </div>
             {description}
