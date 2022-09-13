@@ -21,7 +21,7 @@ const AddNewPlayGround = () => {
   const [getHours, setGetHours] = useState([]);
   console.log(photo);
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWZhNTM1M2I5Y2I1Y2E4ZDI5ZmVjOCIsImlhdCI6MTY2MzAxODMwMCwiZXhwIjoxNjY1NjEwMzAwfQ.JPNK5aj4SIzXC-jEefXcyhrDjo9BM6tx1PXDNQEkbyc";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjA4NWRkNDk5MzdkN2JlYTY0MjRjYyIsImlhdCI6MTY2MzA3OTM3OSwiZXhwIjoxNjY1NjcxMzc5fQ.L8o8jC-SwgwSQC-rurYrIPEEchs0TfYYST6o21Vd3hs";
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
       .then((res) => setGetHours(res.data.data))
@@ -81,7 +81,7 @@ const AddNewPlayGround = () => {
           setStartTime("");
           setEndTime("");
           fetchHours();
-          console.log("Hour saved!!!!!!!!!" + res);
+          console.log("Hour saved!" + res);
         })
         .catch((e) => console.log(e));
     }
@@ -263,7 +263,7 @@ const AddNewPlayGround = () => {
                       >
                         <option className="text-dark" selected>
                           {fetchPlayground.length < 1
-                            ? "No playground to select"
+                            ? "Add playground first"
                             : "Select Playground"}
                         </option>
                         {fetchPlayground.map((playg, j) => (
