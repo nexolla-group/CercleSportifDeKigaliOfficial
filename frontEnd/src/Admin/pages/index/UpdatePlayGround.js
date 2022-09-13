@@ -9,7 +9,7 @@ const UpdatePlayGround = ({ item }) => {
   const [category, setCategory] = useState("");
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWI5NzBmM2QyNDY3M2JlMGJjNWNkYiIsImlhdCI6MTY2Mjc4NzU4MSwiZXhwIjoxNjY1Mzc5NTgxfQ.c2dFzkb-B2Smb2QOtAnlx2FQ-Cmdl2nl57Z-6qZaeV4";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWZhNTM1M2I5Y2I1Y2E4ZDI5ZmVjOCIsImlhdCI6MTY2MzAxODMwMCwiZXhwIjoxNjY1NjEwMzAwfQ.JPNK5aj4SIzXC-jEefXcyhrDjo9BM6tx1PXDNQEkbyc";
   useEffect(() => {
     axios
       .get("http://localhost:2004/api/groundCategory")

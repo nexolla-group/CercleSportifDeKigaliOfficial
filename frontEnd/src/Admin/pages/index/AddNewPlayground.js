@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import AlarmAddRoundedIcon from "@mui/icons-material/AlarmAddRounded";
-import styles from "./addPlayground.module.css";
+
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const AddNewPlayGround = () => {
@@ -11,14 +11,17 @@ const AddNewPlayGround = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [photo2, setPhoto2] = useState("");
+  const [photo3, setPhoto3] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [fetchPlayground, setFetchPlayground] = useState([]);
   const [playground, setPlayground] = useState("");
   const [getHours, setGetHours] = useState([]);
-  console.log(startTime, endTime, playground);
+  console.log(photo);
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWVmYjE2Mzc2YTY0ZDcyODVmNTU2NSIsImlhdCI6MTY2Mjk4MDc1MywiZXhwIjoxNjY1NTcyNzUzfQ.gymUlsaf43TMKSFm1qzyPUCpplAAUtw4ZMbTrOPyqmw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWZhNTM1M2I5Y2I1Y2E4ZDI5ZmVjOCIsImlhdCI6MTY2MzAxODMwMCwiZXhwIjoxNjY1NjEwMzAwfQ.JPNK5aj4SIzXC-jEefXcyhrDjo9BM6tx1PXDNQEkbyc";
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
       .then((res) => setGetHours(res.data.data))
@@ -46,7 +49,7 @@ const AddNewPlayGround = () => {
       category,
       description,
       price,
-      image,
+      photo,
     })
       .then((response) => {
         setName("");
@@ -61,21 +64,51 @@ const AddNewPlayGround = () => {
       });
   };
   const handleSaveHour = async () => {
-    await Axios.post("http://localhost:2004/api/time", {
-      token,
-      playground,
-      startTime,
-      endTime,
-    })
-      .then((res) => {
-        setStartTime("");
-        setEndTime("");
-        fetchHours();
-        console.log("Hour saved!!!!!!!!!" + res);
+    if (!playground && !startTime && !endTime) {
+      console.log("Please add both Time and select Playground!");
+    } else if (playground == "") {
+      console.log("please select playground");
+    } else if (!startTime) {
+      console.log("please add starting Time");
+    } else {
+      await Axios.post("http://localhost:2004/api/time", {
+        token,
+        playground,
+        startTime,
+        endTime,
       })
-      .catch((e) => console.log(e));
+        .then((res) => {
+          setStartTime("");
+          setEndTime("");
+          fetchHours();
+          console.log("Hour saved!!!!!!!!!" + res);
+        })
+        .catch((e) => console.log(e));
+    }
   };
-
+  const deleteHour = async (id) => {
+    try {
+      await Axios.delete(
+        `http://localhost:2004/api/time/${id}?&&token=${token}`
+      );
+      setGetHours(getHours.filter((item) => item._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function previewFiles(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+      console.log(image);
+    };
+  }
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    setPhoto(file);
+    // previewFiles(file);
+  };
   return (
     <>
       <div class="card">
@@ -131,9 +164,11 @@ const AddNewPlayGround = () => {
                 <div className="input-group mb-3">
                   <input
                     type="file"
+                    // value={photo}
                     className="form-control"
-                    id="inputGroupFile02"
+                    onChange={(e) => handleChange(e)}
                   />
+
                   <label
                     className="input-group-text text-light bg-dark"
                     for="inputGroupFile02"
@@ -143,11 +178,10 @@ const AddNewPlayGround = () => {
                 </div>
                 <div className="input-group mb-3">
                   <input
-                    value={image}
                     type="file"
                     className="form-control"
                     id="inputGroupFile02"
-                    onChange={(e) => setImage(e.target.value)}
+                    // onChange={(e) => setPhoto2(e.target.value)}
                   />
                   <label
                     className="input-group-text text-light bg-dark"
@@ -160,7 +194,7 @@ const AddNewPlayGround = () => {
                   <input
                     type="file"
                     class="form-control"
-                    id="inputGroupFile02"
+                    // onChange={(e) => setPhoto3(e.target.value)}
                   />
                   <label
                     class="input-group-text text-light bg-dark"
@@ -219,7 +253,6 @@ const AddNewPlayGround = () => {
                     </div>
                   </div>
                 </div> */}
-
                 <div className="row">
                   <div className="col">
                     <div class="input-group">
@@ -229,7 +262,9 @@ const AddNewPlayGround = () => {
                         className="form-select form-select-lg mb-3"
                       >
                         <option className="text-dark" selected>
-                          Select Playground
+                          {fetchPlayground.length < 1
+                            ? "No playground to select"
+                            : "Select Playground"}
                         </option>
                         {fetchPlayground.map((playg, j) => (
                           <option value={playg._id} key={j}>
@@ -253,6 +288,7 @@ const AddNewPlayGround = () => {
                     </div>
                   </div>
                 </div>
+                <img src={image} />
                 {/* display selected hours */}
                 <div class="row m-2 h-50 overflow-auto">
                   <div class="col col-12 mb-2 ">
@@ -267,6 +303,7 @@ const AddNewPlayGround = () => {
                                 </div>
                                 <div className="col col-3 text-end">
                                   <DeleteOutlineIcon
+                                    onClick={() => deleteHour(item._id)}
                                     style={{ color: "red", cursor: "pointer" }}
                                   />
                                 </div>

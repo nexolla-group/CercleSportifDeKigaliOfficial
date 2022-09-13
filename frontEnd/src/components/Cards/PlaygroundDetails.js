@@ -67,11 +67,11 @@ const PlaygroundDetails = () => {
             <div className="product-imgs">
               <div className="img-display">
                 <div style={{ display: "flex" }} className="img-showcase">
-                  <img className="img-thumbnail" src={photo} />
-                  <img className={photo2} />
+                  <img className="img-thumbnail" src={photo.url} />
+                  <img className={photo2.url} />
                   <img
                     className="img-thumbnail"
-                    src={photo3}
+                    src={photo3.url}
                     alt="Playground Image"
                   />
                 </div>
@@ -81,7 +81,7 @@ const PlaygroundDetails = () => {
                   <a href="#" data-id="1">
                     <img
                       className="img-thumbnail"
-                      src={photo}
+                      src={photo.url}
                       alt="Playground Image "
                     />
                   </a>
@@ -90,14 +90,14 @@ const PlaygroundDetails = () => {
                   <a href="#" data-id="2">
                     <img
                       className="img-thumbnail"
-                      src={photo2}
+                      src={photo2.url}
                       alt="Playground Image"
                     />
                   </a>
                 </div>
                 <div className="img-item">
                   <a href="#" data-id="3">
-                    <img className="img-thumbnail" src={photo3} />
+                    <img className="img-thumbnail" src={photo3.url} />
                   </a>
                 </div>
               </div>

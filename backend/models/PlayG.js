@@ -24,15 +24,16 @@ const PlayGroundSchema = mongoose.Schema({
     default: 0,
   },
   photo: {
-    type: String,
+    type: Object,
     default: "no-photo.jpg",
+    required: true,
   },
   photo2: {
-    type: String,
+    type: Object,
     default: "no-photo.jpg",
   },
   photo3: {
-    type: String,
+    type: Object,
     default: "no-photo.jpg",
   },
   averageRating: {

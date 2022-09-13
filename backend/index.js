@@ -18,6 +18,7 @@ const trans = require("./routes/transaction");
 const playGroundcategory = require("./routes/pCategory");
 const time = require("./routes/time");
 const reviews = require("./routes/reviews");
+const upload = require("./routes/uploads");
 const app = express();
 
 const port = process.env.PORT || 2004;
@@ -33,7 +34,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // file upload
-app.use(fileupload());
+app.use(fileupload({ useTempFiles: true }));
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
@@ -45,6 +46,7 @@ app.use("/api/transaction", trans);
 app.use("/api/groundCategory", playGroundcategory);
 app.use("/api/reviews", reviews);
 app.use("/api/time", time);
+app.use("/api/uploads", upload);
 
 app.use(errorHandler);
 

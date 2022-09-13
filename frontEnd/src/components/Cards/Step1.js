@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const Step1 = ({
   hours,
   handleHours,
-  choices,
+  getHours,
   playgrounds,
   setPlaygrounds,
   setNextScreen,
@@ -27,6 +27,7 @@ const Step1 = ({
         console.log(err);
       });
   }, [api]);
+  // console.log(date);
   return (
     <>
       <div
@@ -75,17 +76,17 @@ const Step1 = ({
             style={{ fontWeight: "bold" }}
             className="container text-center text-dark"
           >
-            <div class="row m-2">
-              {choices.map((item, index) => (
-                <div key={index} class="col-6 col-sm-3 mb-2">
+            <div className="row m-2">
+              {getHours.map((item, index) => (
+                <div key={index} className="col-6 col-sm-3 mb-2">
                   <button
-                    onClick={() => handleHours(item.hours)}
+                    onClick={() => handleHours(item)}
                     style={{ width: "100%" }}
                     className={`btn btn-outline-secondary text-dark ${
-                      hours.find((x) => x == item.hours) ? "bg-success" : ""
+                      getHours.find((x) => x == item) ? "bg-success" : ""
                     }`}
                   >
-                    {item.hours}
+                    {`${item.startTime}-${item.endTime}`}
                   </button>
                 </div>
               ))}
@@ -93,7 +94,7 @@ const Step1 = ({
           </div>
         </div>
       </div>
-      <div class="container px-4 text-center">
+      <div className="container px-4 text-center">
         <div className="row gx-5">
           <div className="col">
             <div className="p-3">

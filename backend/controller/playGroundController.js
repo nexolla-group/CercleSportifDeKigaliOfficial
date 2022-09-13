@@ -25,6 +25,18 @@ exports.getSinglePlayGround = asyncHandler(async (req, res, next) => {
 });
 
 exports.createPlayGround = asyncHandler(async (req, res, next) => {
+  const { name, category, description, price, photo, photo2, photo3 } =
+    req.body;
+  if (!photo)
+    return next(new ErrorResponse(`Please upload at least on image`, 400));
+
+  // check if playground exist
+  const isExist = await PlayGround.findOne({ name });
+  if (isExist)
+    return next(
+      new ErrorResponse(`Playground with name ${name} is already exist.`)
+    );
+
   const playground = await PlayGround.create(req.body);
   res.status(201).json({ success: true, data: playground });
 });

@@ -41,7 +41,7 @@ const RecentlyAddedPlaygrounds = () => {
           <div className="col col-4 text-start">
             <img
               style={{ borderRadius: 4, height: "100px" }}
-              src={item.photo}
+              src={item.photo.url}
               className="img-fluid rounded-lg"
             />
           </div>
@@ -104,7 +104,7 @@ const RecentlyAddedPlaygrounds = () => {
               <div className="col col-4 text-start">
                 <img
                   style={{ borderRadius: 4, height: "100px" }}
-                  src={item.photo}
+                  src={item.photo.url}
                   className="img-fluid rounded-lg"
                 />
               </div>
