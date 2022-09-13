@@ -18,7 +18,7 @@ const AddNewPlayGround = () => {
   const [getHours, setGetHours] = useState([]);
   console.log(startTime, endTime, playground);
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWVmYjE2Mzc2YTY0ZDcyODVmNTU2NSIsImlhdCI6MTY2Mjk4MDc1MywiZXhwIjoxNjY1NTcyNzUzfQ.gymUlsaf43TMKSFm1qzyPUCpplAAUtw4ZMbTrOPyqmw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWZhNTM1M2I5Y2I1Y2E4ZDI5ZmVjOCIsImlhdCI6MTY2MzAxODMwMCwiZXhwIjoxNjY1NjEwMzAwfQ.JPNK5aj4SIzXC-jEefXcyhrDjo9BM6tx1PXDNQEkbyc";
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
       .then((res) => setGetHours(res.data.data))
@@ -61,19 +61,27 @@ const AddNewPlayGround = () => {
       });
   };
   const handleSaveHour = async () => {
-    await Axios.post("http://localhost:2004/api/time", {
-      token,
-      playground,
-      startTime,
-      endTime,
-    })
-      .then((res) => {
-        setStartTime("");
-        setEndTime("");
-        fetchHours();
-        console.log("Hour saved!!!!!!!!!" + res);
+    if (!playground && !startTime && !endTime) {
+      console.log("Please add both Time and select Playground!");
+    } else if (playground == "") {
+      console.log("please select playground");
+    } else if (!startTime) {
+      console.log("please add starting Time");
+    } else {
+      await Axios.post("http://localhost:2004/api/time", {
+        token,
+        playground,
+        startTime,
+        endTime,
       })
-      .catch((e) => console.log(e));
+        .then((res) => {
+          setStartTime("");
+          setEndTime("");
+          fetchHours();
+          console.log("Hour saved!!!!!!!!!" + res);
+        })
+        .catch((e) => console.log(e));
+    }
   };
 
   return (
@@ -229,7 +237,9 @@ const AddNewPlayGround = () => {
                         className="form-select form-select-lg mb-3"
                       >
                         <option className="text-dark" selected>
-                          Select Playground
+                          {fetchPlayground.length < 1
+                            ? "No playground to select"
+                            : "Select Playground"}
                         </option>
                         {fetchPlayground.map((playg, j) => (
                           <option value={playg._id} key={j}>
