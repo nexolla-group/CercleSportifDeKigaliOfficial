@@ -1,6 +1,7 @@
 import React from "react";
 import Category from "../category/Category";
-import PlaygroundReport from "./PlaygroundReport";
+// import PlaygroundReport from "./PlaygroundReport";
+import BasicTable from "./Transactions/BasicTable";
 
 const Accordions = () => {
   return (
@@ -50,7 +51,8 @@ const Accordions = () => {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              <PlaygroundReport />
+              {/* <PlaygroundReport /> */}
+              <BasicTable />
             </div>
           </div>
         </div>
