@@ -24,13 +24,13 @@ const Home = () => {
         setIsLoading(false);
         console.log(res.data);
         setSearchResult(res.data.data);
-        setPlaygrounds(res.data.data);
+        // setPlaygrounds(res.data.data);
       })
       .catch((err) => {
         setIsLoading(false);
         console.log(err);
       });
-  }, [api]);
+  }, []);
   useEffect(() => {
     if (searchKey === "") {
       setSearchResult(playgrounds);
@@ -80,7 +80,7 @@ const Home = () => {
       </div>
       <div
         style={{
-          bottom: 0,
+          bottom: "0",
         }}
         className="footerContent"
       >

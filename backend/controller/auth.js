@@ -8,12 +8,13 @@ const sendEmail = require("../utils/sendEmails");
 // @route   POST /api/auth/register
 // @access   public
 exports.register = asyncHandler(async (req, res, next) => {
-  const { firstname, lastname, email, password, role } = req.body;
+  const { firstname, lastname, email, phone, password, role } = req.body;
   // create user
   const user = await User.create({
     firstname,
     lastname,
     email,
+    phone,
     password,
     role,
   });
@@ -82,6 +83,10 @@ const sendTokenResponse = (user, statusCode, res) => {
   // create token
   const token = user.getSignedJwtToken();
   const userRole = user.role;
+  const firstname = user.firstname;
+  const lastname = user.lastname;
+  const email = user.email;
+  const phone = user.phone;
 
   const options = {
     expires: new Date(
@@ -92,10 +97,15 @@ const sendTokenResponse = (user, statusCode, res) => {
   if (process.env.NODE_ENV == "production") {
     options.secure = true;
   }
-  res
-    .status(statusCode)
-    .cookie("token", token, options)
-    .json({ success: true, token, userRole });
+  res.status(statusCode).cookie("token", token, options).json({
+    success: true,
+    token,
+    firstname,
+    lastname,
+    email,
+    phone,
+    userRole,
+  });
 };
 
 // @desc      Update user details

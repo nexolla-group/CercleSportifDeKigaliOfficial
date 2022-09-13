@@ -5,38 +5,17 @@ import { NavLink, Link } from "react-router-dom";
 import Step1 from "./Step1";
 import MakeBooking from "./MakeBooking";
 
-const choices = [
-  {
-    hours: "08:00-09:00",
-  },
-  {
-    hours: "09:00-10:00",
-  },
-  {
-    hours: "10:00-11:00",
-  },
-  {
-    hours: "11:00-12:00",
-  },
-  {
-    hours: "12:00-01:00",
-  },
-  {
-    hours: "01:00-02:00",
-  },
-  {
-    hours: "02:00-03:00",
-  },
-];
 const BookPlayground = () => {
   const { id } = useParams();
   const [playgrounds, setPlaygrounds] = useState([]);
   const [date, setDate] = useState(new Date());
   const [hours, setHours] = useState([]);
+  const [getHours, setGetHours] = useState([]);
   const [nextScreen, setNextScreen] = useState(false);
 
   const api = `http://localhost:2004/api/playground/${id}`;
   const { name, description, photo, price, isAvailable } = playgrounds;
+
   useEffect(() => {
     Axios.get(api)
       .then((res) => {
@@ -46,12 +25,24 @@ const BookPlayground = () => {
       .catch((err) => {
         console.log(err);
       });
+    Axios.get("http://localhost:2004/api/time")
+      .then((res) => {
+        // if (res.data.playground == id) {
+        setGetHours(res.data.data);
+        // }
+      })
+      .catch((e) => console.log(e));
   }, [api]);
-
   const handleHours = (x) => {
-    const time = hours.find((item) => item == x);
+    const time = getHours.find(
+      (item) => item.startTime == x.startTime && item.endTime == x.endTime
+    );
     if (time) {
-      setHours(hours.filter((item) => item != x));
+      setHours(
+        hours.filter(
+          (item) => item.startTime != x.startTime && item.endTime != x.endTime
+        )
+      );
     } else {
       setHours([...hours, x]);
     }
@@ -65,7 +56,7 @@ const BookPlayground = () => {
         <Step1
           hours={hours}
           handleHours={handleHours}
-          choices={choices}
+          getHours={getHours}
           playgrounds={playgrounds}
           setPlaygrounds={setPlaygrounds}
           setNextScreen={setNextScreen}

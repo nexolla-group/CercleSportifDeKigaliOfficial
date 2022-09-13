@@ -45,7 +45,6 @@ export default function Category() {
     }
   };
   const handleDelete = async (id) => {
-    console.log(id);
     try {
       await axios.delete(
         `http://localhost:2004/api/groundCategory/${id}?&&token=${token}`
