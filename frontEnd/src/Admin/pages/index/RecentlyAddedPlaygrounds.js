@@ -6,7 +6,7 @@ import ViewUpdatePlayground from "./ViewUpdatePlayground";
 import ViewMoreAboutPlayground from "./ViewMoreAboutPlayground";
 const RecentlyAddedPlaygrounds = () => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWVmYjE2Mzc2YTY0ZDcyODVmNTU2NSIsImlhdCI6MTY2Mjk4MDc1MywiZXhwIjoxNjY1NTcyNzUzfQ.gymUlsaf43TMKSFm1qzyPUCpplAAUtw4ZMbTrOPyqmw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjA4NWRkNDk5MzdkN2JlYTY0MjRjYyIsImlhdCI6MTY2MzE0Mjk2MiwiZXhwIjoxNjY1NzM0OTYyfQ.xrNC2P6R_2fudGPIQU0qvmNkPY0vYKcoi1i0lPn_-TM";
   const [playgrounds, setPlaygrounds] = useState([]);
 
   const api = `http://localhost:2004/api/playground/`;
@@ -41,7 +41,7 @@ const RecentlyAddedPlaygrounds = () => {
           <div className="col col-4 text-start">
             <img
               style={{ borderRadius: 4, height: "100px" }}
-              src={item.photo.url}
+              src={item.photo}
               className="img-fluid rounded-lg"
             />
           </div>
@@ -162,7 +162,17 @@ const RecentlyAddedPlaygrounds = () => {
                 className="col col-1 p-2 text-end"
               >
                 <DeleteOutlineOutlinedIcon
-                  onClick={() => handleDelete(item._id)}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete playground?"
+                      )
+                    ) {
+                      handleDelete(item._id);
+                    }
+                  }}
+                  className="text-danger"
+                  style={{ cursor: "pointer" }}
                 />
               </div>
             </div>

@@ -68,9 +68,6 @@ const ViewMoreAboutPlayground = ({ item }) => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
-                Update
-              </button>
             </div>
           </div>
         </div>

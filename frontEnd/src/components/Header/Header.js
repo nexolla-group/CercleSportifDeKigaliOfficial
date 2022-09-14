@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Header.module.scss";
+import styles from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
 
 const logOut = () => {
@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <nav
       style={{ height: 250, padding: 50 }}
-      className="navbar navbar-expand-lg bg-light "
+      className={`${styles.navubar} navbar navbar-expand-lg bg-light`}
     >
       <div className="container-fluid">
         <button

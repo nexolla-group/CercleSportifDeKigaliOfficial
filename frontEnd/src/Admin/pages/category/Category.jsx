@@ -74,8 +74,16 @@ export default function Category() {
                           </div>
                           <div className="col col-3 text-end">
                             <DeleteOutlineIcon
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you want to delete playground category?"
+                                  )
+                                ) {
+                                  handleDelete(cat._id);
+                                }
+                              }}
                               className="text-danger"
-                              onClick={() => handleDelete(cat._id)}
                               style={{ cursor: "pointer" }}
                             />
                           </div>
