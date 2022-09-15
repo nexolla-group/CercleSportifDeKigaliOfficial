@@ -14,49 +14,72 @@ const MakeBooking = ({ setNextScreen }) => {
         }}
         className="container-fluid mt-2 p-2"
       >
-        <form class="row g-3">
+        <form style={{ padding: "2rem" }} class="row g-3">
           <div class="col-md-6">
-            <label for="first name" class="form-label">
-              First Name
-            </label>
-            <input type="text" class="form-control" required />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="First name"
+              required
+            />
           </div>
           <div className="col-md-6">
-            <label for="Last name" className="form-label">
-              Last Name
-            </label>
-            <input type="text" className="form-control" required />
-          </div>
-          <div class="col-md-6">
-            <label for="inputEmail4" class="form-label">
-              Email
-            </label>
-            <input type="email" class="form-control" required />
-          </div>
-          <div className="col-md-6">
-            <label for="phone" className="form-label">
-              Phone
-            </label>
-            <input type="text" className="form-control" required />
-          </div>
-          <div className="col-6">
-            <label for="inputAddress" className="form-label">
-              Address
-            </label>
             <input
               type="text"
               className="form-control"
-              placeholder="1234 KN Street"
+              placeholder="Last name"
+              required
             />
           </div>
           <div class="col-md-6">
-            <label for="inputCity" class="form-label">
-              City
-            </label>
-            <input type="text" className="form-control" required />
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
           </div>
+          <div className="col-md-6">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Telephone number ex: 0780000000"
+              required
+            />
+          </div>
+          <div className="col-6">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter your address ex:1234 KN Street"
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter city"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter name of your organizartion"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Amount to pay"
+              required
+            />
+          </div>
+
           <div className="col-12">
-            <label for="floatingTextarea">Notes</label>
             <textarea
               class="form-control"
               placeholder="Write short notes about playground being booked"
