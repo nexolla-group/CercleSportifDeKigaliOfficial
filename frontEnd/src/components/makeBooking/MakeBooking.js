@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import CheckoutModal from "../checkout/CheckoutModal";
 
-const MakeBooking = ({ setNextScreen }) => {
+const MakeBooking = ({
+  setNextScreen,
+  selectedHours,
+  date,
+  totalOfFrancs,
+  tax,
+  totalCost,
+}) => {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [amount, setAmount] = useState(`${totalCost} Rwf`);
+  const [shortNote, setShortNote] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+
   return (
     <>
       <div
@@ -18,40 +36,50 @@ const MakeBooking = ({ setNextScreen }) => {
           <div class="col-md-6">
             <input
               type="text"
+              value={firstname}
               class="form-control"
               placeholder="First name"
+              onChange={(e) => setFirstname(e.target.value)}
               required
             />
           </div>
           <div className="col-md-6">
             <input
               type="text"
+              value={lastname}
               className="form-control"
               placeholder="Last name"
+              onChange={(e) => setLastname(e.target.value)}
               required
             />
           </div>
           <div class="col-md-6">
             <input
               type="email"
+              value={email}
               class="form-control"
               placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="col-md-6">
             <input
               type="text"
+              value={telephone}
               className="form-control"
               placeholder="Telephone number ex: 0780000000"
+              onChange={(e) => setTelephone(e.target.value)}
               required
             />
           </div>
           <div className="col-6">
             <input
               type="text"
+              value={address}
               className="form-control"
               placeholder="Enter your address ex:1234 KN Street"
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
           <div class="col-md-6">
@@ -59,6 +87,8 @@ const MakeBooking = ({ setNextScreen }) => {
               type="text"
               className="form-control"
               placeholder="Enter city"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               required
             />
           </div>
@@ -67,6 +97,8 @@ const MakeBooking = ({ setNextScreen }) => {
               type="text"
               className="form-control"
               placeholder="Enter name of your organizartion"
+              value={organization}
+              onChange={(e) => setOrganization(e.target.value)}
               required
             />
           </div>
@@ -75,6 +107,7 @@ const MakeBooking = ({ setNextScreen }) => {
               type="text"
               className="form-control"
               placeholder="Amount to pay"
+              value={amount}
               required
             />
           </div>
@@ -84,13 +117,22 @@ const MakeBooking = ({ setNextScreen }) => {
               class="form-control"
               placeholder="Write short notes about playground being booked"
               id="floatingTextarea"
+              value={shortNote}
+              onChange={(e) => setShortNote(e.target.value)}
             ></textarea>
           </div>
           <div class="col-md">
             <div class="form-floating">
-              <select class="form-select" id="floatingSelectGrid" required>
+              <select
+                class="form-select"
+                id="floatingSelectGrid"
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                required
+              >
                 <option selected>Payment method</option>
-                <option value="1">PayPal</option>
+                <option value="paypal">PayPal</option>
+                <option value="momo">Momo</option>
               </select>
             </div>
           </div>
@@ -108,7 +150,23 @@ const MakeBooking = ({ setNextScreen }) => {
             </div>
             <div className="col col-4"></div>
             <div className="col col-4 text-end">
-              <CheckoutModal />
+              <CheckoutModal
+                firstname={firstname}
+                lastname={lastname}
+                email={email}
+                address={address}
+                amount={amount}
+                telephone={telephone}
+                city={city}
+                paymentMethod={paymentMethod}
+                organization={organization}
+                shortNote={shortNote}
+                selectedHours={selectedHours}
+                date={date}
+                totalOfFrancs={totalOfFrancs}
+                tax={tax}
+                totalCost={totalCost}
+              />
             </div>
           </div>
         </div>

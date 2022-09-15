@@ -7,6 +7,9 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
 
+  const totalOfFrancs = totalPrice * selectedHours.length;
+  const tax = (totalOfFrancs * 18) / 100;
+  const totalCost = totalOfFrancs + tax;
   let { name } = playgrounds;
   let api = `http://localhost:2004/api/playground/`;
   useEffect(() => {
@@ -65,7 +68,7 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
                         </>
                       </td>
                       <td>
-                        {totalPrice * selectedHours.length} <b>Rwf</b>
+                        {totalOfFrancs} <b>Rwf</b>
                       </td>
                     </tr>
                   </tbody>
@@ -90,7 +93,7 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {totalPrice * selectedHours.length} <b>Rwf</b>
+                {totalOfFrancs} <b>Rwf</b>
               </div>
             </div>
             <div
@@ -109,7 +112,7 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {(totalPrice * selectedHours.length * 18) / 100} <b>Rwf</b>
+                {tax} <b>Rwf</b>
               </div>
             </div>
             <div
@@ -128,15 +131,20 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {totalPrice * selectedHours.length +
-                  (totalPrice * selectedHours.length * 18) / 100}{" "}
-                <b>Rwf</b>
+                {totalCost} <b>Rwf</b>
               </div>
             </div>
             <div className="row mt-3 mb-3">
               <div className="col col-4"></div>
             </div>
-            <Booking setNextScreen={setNextScreen} />
+            <Booking
+              setNextScreen={setNextScreen}
+              selectedHours={selectedHours}
+              date={date}
+              totalOfFrancs={totalOfFrancs}
+              tax={tax}
+              totalCost={totalCost}
+            />
           </div>
         </>
       )}
