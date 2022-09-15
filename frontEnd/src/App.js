@@ -41,7 +41,7 @@ function App() {
           <Route path="/booking" element={<Booking />} />
           <Route path="/playgrounds" element={<Playgrounds />} />
           <Route path="/register" element={<UserRegister />} />
-          <Route path="/checkout" element={<Checkout />} />
+          {/* <Route path="/checkout" element={<Checkout />} /> */}
           <Route path="/makebooking" element={<MakeBooking />} />
 
           {/* admin */}

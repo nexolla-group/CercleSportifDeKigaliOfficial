@@ -1,44 +1,43 @@
 const mongoose = require("mongoose");
 
 const TransactionSchema = mongoose.Schema({
-  tx_ref: {
+  transactionId: {
     type: String,
     required: true,
   },
-  amount: {
-    type: Number,
-    required: true,
-  },
-  currency: {
-    type: String,
-  },
-  tx_status: {
-    type: String,
-    required: true,
-  },
-  paymentType: {
-    type: String,
-    required: true,
-  },
-
-  phone_number: {
-    type: String,
-    required: true,
-  },
-
   playGroundId: {
     type: mongoose.Schema.ObjectId,
     ref: "PlayGround",
   },
-  customer: {
+
+  amount: {
+    type: Number,
+    required: true,
+  },
+  transactionStatus: {
     type: String,
-    ref: "User",
+    required: true,
   },
-  timeTaken: {
-    type: Date,
+  paymentMethod: {
+    type: String,
+    required: true,
   },
-  timeRelease: {
-    type: Date,
+  firstname: {
+    type: String,
+  },
+  lastname: {
+    type: String,
+  },
+  telephoneNumber: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
   },
   cretedAt: {
     type: Date,
