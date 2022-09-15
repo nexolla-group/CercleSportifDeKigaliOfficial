@@ -1,17 +1,38 @@
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import TopBarADmin from "./TopBarADmin";
 import MainAdmin from "./MainAdmin";
 import Reviews from "./Reviews";
 import AddNewPlayGround from "./AddNewPlayground";
 import Topbar from "../../components/topbar/Topbar";
 import Accordions from "./Accordions";
+
 export default function Index() {
   const dropDown = () => {
     let navigation = document.querySelector(".navigation");
 
     navigation.classList.toggle("active");
   };
+  const [token, setToken] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+
+  const getAdminAuthentication = async () => {
+    const token = await localStorage.getItem("token");
+    const role = await localStorage.getItem("userRole");
+    setUserRole(role);
+    console.log("Admin token:", token);
+    console.log("User role:", role);
+    if (userRole === "admin") {
+      setToken(token);
+
+      window.location = "/admin";
+    } else {
+      window.location = "/register";
+    }
+  };
+  useEffect(() => {
+    getAdminAuthentication();
+  }, [token]);
 
   return (
     <>
