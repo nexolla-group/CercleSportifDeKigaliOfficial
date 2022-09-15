@@ -14,13 +14,14 @@ const BookPlayground = () => {
   const [availableHours, setAvailableHours] = useState([]);
 
   const api = `http://localhost:2004/api/playground/${id}`;
-  const { name, description, photo, price, isAvailable } = playgrounds;
+  const [totalPrice, setTotalPrice] = useState("");
 
   useEffect(() => {
     Axios.get(api)
       .then((res) => {
         // console.log(res.data);
         setPlaygrounds(res.data.data);
+        setTotalPrice(res.data.data.price);
       })
       .catch((err) => {
         console.log(err);
@@ -54,6 +55,7 @@ const BookPlayground = () => {
           setNextScreen={setNextScreen}
           selectedHours={selectedHours}
           date={date}
+          totalPrice={totalPrice}
         />
       ) : (
         <Step1
@@ -65,6 +67,7 @@ const BookPlayground = () => {
           setNextScreen={setNextScreen}
           setDate={setDate}
           date={date}
+          totalPrice={totalPrice}
         />
       )}
     </>

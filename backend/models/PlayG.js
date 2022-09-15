@@ -16,7 +16,7 @@ const PlayGroundSchema = mongoose.Schema({
   description: {
     type: String,
     required: [true, "Please add any description this playground"],
-    maxlength: [500, "Description can not be more than 500 characters"],
+    maxlength: [5000, "Description can not be more than 500 characters"],
   },
 
   price: {

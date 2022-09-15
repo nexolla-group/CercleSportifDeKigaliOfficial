@@ -12,9 +12,11 @@ const Step1 = ({
   setNextScreen,
   setDate,
   date,
+  totalPrice,
 }) => {
   const { price } = playgrounds;
   const { id } = useParams();
+
   const api = `http://localhost:2004/api/playground/${id}`;
 
   useEffect(() => {
@@ -108,7 +110,17 @@ const Step1 = ({
             </div>
           </div>
           <div className="col">
-            <div className="p-3 ">{price * selectedHours.length}</div>
+            <div className="p-3 ">{totalPrice}</div>
+          </div>
+        </div>
+        <div className="row gx-5">
+          <div className="col">
+            <div className="p-3">
+              <h5 fs-5>Amount to pay </h5>
+            </div>
+          </div>
+          <div className="col">
+            <div className="p-3 ">{totalPrice * selectedHours.length}</div>
           </div>
         </div>
         <div className="row gx-5">

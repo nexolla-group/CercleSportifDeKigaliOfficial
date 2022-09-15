@@ -13,7 +13,7 @@ const CardDetails = () => {
   let [playgrounds, setPlaygrounds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   let { name, description, photo, price, isAvailable } = playgrounds;
-  let api = `http://localhost:2004/api/playground/${id}`;
+  let api = `http://localhost:2004/api/playGround/${id}`;
 
   useEffect(() => {
     Axios.get(api)

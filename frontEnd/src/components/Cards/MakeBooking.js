@@ -3,12 +3,12 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import Booking from "../../Pages/Booking";
 
-const MakeBooking = ({ setNextScreen, selectedHours, date }) => {
+const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
 
-  let { name, price } = playgrounds;
-  let api = `http://localhost:2004/api/playground/${id}`;
+  let { name } = playgrounds;
+  let api = `http://localhost:2004/api/playground/`;
   useEffect(() => {
     Axios.get(api)
       .then((res) => {
@@ -59,12 +59,12 @@ const MakeBooking = ({ setNextScreen, selectedHours, date }) => {
                       <td>
                         <>
                           {selectedHours.map((x, i) => (
-                            <p key={i}>{x}</p>
+                            <p key={i}> {`${x.startTime}-${x.endTime}`}</p>
                           ))}
                         </>
                       </td>
                       <td>
-                        {price * selectedHours.length} <b>Rwf</b>
+                        {totalPrice * selectedHours.length} <b>Rwf</b>
                       </td>
                     </tr>
                   </tbody>
@@ -89,7 +89,7 @@ const MakeBooking = ({ setNextScreen, selectedHours, date }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {price * selectedHours.length} <b>Rwf</b>
+                {totalPrice * selectedHours.length} <b>Rwf</b>
               </div>
             </div>
             <div
@@ -108,7 +108,7 @@ const MakeBooking = ({ setNextScreen, selectedHours, date }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {(price * selectedHours.length * 18) / 100} <b>Rwf</b>
+                {(totalPrice * selectedHours.length * 18) / 100} <b>Rwf</b>
               </div>
             </div>
             <div
@@ -127,8 +127,8 @@ const MakeBooking = ({ setNextScreen, selectedHours, date }) => {
                 style={{ textAlign: "right" }}
                 className="col col-6 text-dark"
               >
-                {price * selectedHours.length +
-                  (price * selectedHours.length * 18) / 100}{" "}
+                {totalPrice * selectedHours.length +
+                  (totalPrice * selectedHours.length * 18) / 100}{" "}
                 <b>Rwf</b>
               </div>
             </div>
