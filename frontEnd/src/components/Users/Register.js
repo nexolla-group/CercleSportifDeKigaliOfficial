@@ -3,6 +3,7 @@ import Axios from "axios";
 import Login from "./Login";
 import "./register.css";
 import { toast } from "react-toastify";
+import LoginAsAdmin from "./LoginAsAdmin";
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
@@ -140,17 +141,7 @@ const Register = () => {
           </div>
         </div>
         <Login back1={back1} />
-        <div style={{ left: "-450px" }} className="form" id="form3">
-          <h3>Admin Pannel</h3>
-          <input type="text" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
-          <div class="btn-box">
-            <button type="submit">Login</button>
-            <button type="button" onClick={back2}>
-              Back
-            </button>
-          </div>
-        </div>
+        <LoginAsAdmin back2={back2} />
 
         <div class="step-row">
           <div id="progress"></div>
