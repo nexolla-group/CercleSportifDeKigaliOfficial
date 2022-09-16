@@ -3,7 +3,13 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import Booking from "../../Pages/Booking";
 
-const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
+const MakeBooking = ({
+  setNextScreen,
+  selectedHours,
+  date,
+  totalPrice,
+  playgroundName,
+}) => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
 
@@ -144,6 +150,7 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
               totalOfFrancs={totalOfFrancs}
               tax={tax}
               totalCost={totalCost}
+              playgroundName={playgroundName}
             />
           </div>
         </>

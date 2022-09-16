@@ -15,7 +15,7 @@ const BookPlayground = () => {
 
   const api = `http://localhost:2004/api/playground/${id}`;
   const [totalPrice, setTotalPrice] = useState("");
-
+  const { name } = playgrounds;
   useEffect(() => {
     Axios.get(api)
       .then((res) => {
@@ -56,6 +56,7 @@ const BookPlayground = () => {
           selectedHours={selectedHours}
           date={date}
           totalPrice={totalPrice}
+          playgroundName={name}
         />
       ) : (
         <Step1

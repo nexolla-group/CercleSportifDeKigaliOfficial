@@ -121,7 +121,7 @@ const Header = () => {
                 to="/register"
                 className="btn btn-warning fs-5"
               >
-                <u className="text-light">Create Account</u>
+                <u className="text-light pr-4">Create Account</u>
                 Login
               </NavLink>
             </>

@@ -8,6 +8,7 @@ const MakeBooking = ({
   totalOfFrancs,
   tax,
   totalCost,
+  playgroundName,
 }) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -71,6 +72,7 @@ const MakeBooking = ({
               placeholder="Telephone number ex: 0780000000"
               onChange={(e) => setTelephone(e.target.value)}
               required
+              maxLength="10"
             />
           </div>
           <div className="col-6">
@@ -131,7 +133,6 @@ const MakeBooking = ({
                 required
               >
                 <option selected>Payment method</option>
-                <option value="paypal">PayPal</option>
                 <option value="momo">Momo</option>
               </select>
             </div>
@@ -166,6 +167,7 @@ const MakeBooking = ({
                 totalOfFrancs={totalOfFrancs}
                 tax={tax}
                 totalCost={totalCost}
+                playgroundName={playgroundName}
               />
             </div>
           </div>

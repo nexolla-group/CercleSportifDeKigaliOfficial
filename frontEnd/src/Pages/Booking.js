@@ -11,6 +11,7 @@ const Booking = ({
   totalOfFrancs,
   tax,
   totalCost,
+  playgroundName,
 }) => {
   return (
     <>
@@ -27,6 +28,7 @@ const Booking = ({
               totalOfFrancs={totalOfFrancs}
               tax={tax}
               totalCost={totalCost}
+              playgroundName={playgroundName}
             />
           </div>
         </div>
