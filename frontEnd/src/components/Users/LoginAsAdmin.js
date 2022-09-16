@@ -12,10 +12,13 @@ const LoginAsAdmin = ({ back2 }) => {
       password: password,
     })
       .then((res) => {
+        // console.log("login successfully");
+        // console.log("RESPONSE: ", response.data.user);
+
         setEmail("");
         setPassword("");
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("role", res.data.userRole);
+        localStorage.setItem("userRole", res.data.token);
         toast("Logged in successful!", {
           type: "success",
           position: "top-right",
@@ -26,11 +29,12 @@ const LoginAsAdmin = ({ back2 }) => {
           draggable: true,
           progress: undefined,
         });
+        const hash = window.location.hash;
 
-        if (res.data.userRole === "admin") {
-          window.location = "/admin";
+        if (hash !== "") {
+          window.location = "/" + hash.split("#")[1];
         } else {
-          window.location = "/register";
+          window.location = "/admin";
         }
       })
       .catch((error) => {
@@ -44,7 +48,7 @@ const LoginAsAdmin = ({ back2 }) => {
           draggable: true,
           progress: undefined,
         });
-        console.log("invalid credentials", error);
+        console.log(error);
       });
   };
   return (

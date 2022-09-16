@@ -3,7 +3,7 @@ import Category from "../category/Category";
 // import PlaygroundReport from "./PlaygroundReport";
 import BasicTable from "./Transactions/BasicTable";
 
-const Accordions = () => {
+const Accordions = ({ token }) => {
   return (
     <>
       <div className="accordion" id="accordionExample">
@@ -27,7 +27,7 @@ const Accordions = () => {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              <Category />
+              <Category token={token} />
             </div>
           </div>
         </div>

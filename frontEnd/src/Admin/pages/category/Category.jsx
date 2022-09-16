@@ -2,12 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function Category() {
+export default function Category({ token }) {
   const [getCategory, setGetCategory] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjA4NWRkNDk5MzdkN2JlYTY0MjRjYyIsImlhdCI6MTY2MzA3NTk0MywiZXhwIjoxNjY1NjY3OTQzfQ.ldN0KOLNQ_6OPxR04XOug25Yp5ixhrjclkFCtrh_UxY";
 
   let linkApi = "http://localhost:2004/api/groundCategory";
   const fetchCategory = async () => {

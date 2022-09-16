@@ -4,7 +4,7 @@ import AlarmAddRoundedIcon from "@mui/icons-material/AlarmAddRounded";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-const AddNewPlayGround = () => {
+const AddNewPlayGround = ({ token }) => {
   const [name, setName] = useState("");
   const [getcategory, setGetcategory] = useState([]);
   const [category, setCategory] = useState("");
@@ -20,8 +20,7 @@ const AddNewPlayGround = () => {
   const [playground, setPlayground] = useState("");
   const [getHours, setGetHours] = useState([]);
   console.log(photo);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjA4NWRkNDk5MzdkN2JlYTY0MjRjYyIsImlhdCI6MTY2MzE0Mjk2MiwiZXhwIjoxNjY1NzM0OTYyfQ.xrNC2P6R_2fudGPIQU0qvmNkPY0vYKcoi1i0lPn_-TM";
+
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
       .then((res) => setGetHours(res.data.data))

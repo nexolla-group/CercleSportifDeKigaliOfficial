@@ -13,26 +13,8 @@ export default function Index() {
 
     navigation.classList.toggle("active");
   };
-  const [token, setToken] = useState(null);
-  const [userRole, setUserRole] = useState(null);
 
-  const getAdminAuthentication = async () => {
-    const token = await localStorage.getItem("token");
-    const role = await localStorage.getItem("userRole");
-    setUserRole(role);
-    console.log("Admin token:", token);
-    console.log("User role:", role);
-    if (userRole === "admin") {
-      setToken(token);
-
-      window.location = "/admin";
-    } else {
-      window.location = "/register";
-    }
-  };
-  useEffect(() => {
-    getAdminAuthentication();
-  }, [token]);
+  const adminToken = localStorage.getItem("token");
 
   return (
     <>
@@ -42,18 +24,18 @@ export default function Index() {
       >
         <Topbar />
         {/* <TopBarADmin /> */}
-        <MainAdmin />
+        <MainAdmin token={adminToken} />
         <div className="row">
           <div className="col col-lg-4 col-sm-12 col-xs-12 mt-2">
             <Reviews />
           </div>
           <div className="col col-lg-8 mt-2 col-sm-12 col-xs-12">
-            <AddNewPlayGround />
+            <AddNewPlayGround token={adminToken} />
           </div>
         </div>
         <div className="row mt-3">
           <div className="col">
-            <Accordions />
+            <Accordions token={adminToken} />
           </div>
         </div>
       </div>

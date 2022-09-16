@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-
 import ViewUpdatePlayground from "./ViewUpdatePlayground";
 import ViewMoreAboutPlayground from "./ViewMoreAboutPlayground";
-const RecentlyAddedPlaygrounds = () => {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjA4NWRkNDk5MzdkN2JlYTY0MjRjYyIsImlhdCI6MTY2MzE0Mjk2MiwiZXhwIjoxNjY1NzM0OTYyfQ.xrNC2P6R_2fudGPIQU0qvmNkPY0vYKcoi1i0lPn_-TM";
+
+const RecentlyAddedPlaygrounds = ({ token }) => {
   const [playgrounds, setPlaygrounds] = useState([]);
 
   const api = `http://localhost:2004/api/playground/`;

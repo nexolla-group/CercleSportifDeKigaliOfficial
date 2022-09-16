@@ -2,7 +2,7 @@ import React from "react";
 import RecentlyAddedPlaygrounds from "./RecentlyAddedPlaygrounds";
 import Statistics from "./Statistics";
 
-const MainAdmin = () => {
+const MainAdmin = ({ token }) => {
   return (
     <>
       <div className="row mt-5">
@@ -15,7 +15,7 @@ const MainAdmin = () => {
               style={{ height: "400px", overflow: "scroll" }}
               class="card-body"
             >
-              <RecentlyAddedPlaygrounds />
+              <RecentlyAddedPlaygrounds token={token} />
             </div>
           </div>
         </div>
