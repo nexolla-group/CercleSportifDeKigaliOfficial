@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
+import { getToken, logOut } from "../../helpers";
 
-const logOut = () => {
-  localStorage.clear();
-  window.location = "register";
-};
 const Header = () => {
   const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    const T = localStorage.getItem("token");
+  const validation = async () => {
+    const T = await getToken();
     setToken(T);
-  }, [token]);
-
+  };
+  useEffect(() => {
+    validation();
+  }, []);
   return (
     <nav
       style={{ height: 250, padding: 50 }}
@@ -112,25 +110,20 @@ const Header = () => {
           }}
           class="text-light"
         >
-          {token !== null && (
+          {token !== null ? (
             <>
-              {token !== "" && token !== undefined ? (
-                <>
-                  <small onClick={logOut}>Log out</small>
-                </>
-              ) : (
-                <>
-                  {" "}
-                  <NavLink
-                    style={{ padding: "1px 45px" }}
-                    to="/register"
-                    className="btn btn-warning fs-5"
-                  >
-                    <u className="text-light">Create Account</u>
-                    Login
-                  </NavLink>
-                </>
-              )}
+              <small onClick={logOut}>Log out</small>
+            </>
+          ) : (
+            <>
+              <NavLink
+                style={{ padding: "1px 45px" }}
+                to="/register"
+                className="btn btn-warning fs-5"
+              >
+                <u className="text-light">Create Account</u>
+                Login
+              </NavLink>
             </>
           )}
         </div>

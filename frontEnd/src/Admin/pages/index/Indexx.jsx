@@ -14,8 +14,24 @@ export default function Index() {
     navigation.classList.toggle("active");
   };
 
-  const adminToken = localStorage.getItem("token");
+  // const adminToken = localStorage.getItem("token");
+  const [token, setToken] = useState(null);
+  const getAdminAuth = async () => {
+    const token = await localStorage.getItem("token");
+    const role = await localStorage.getItem("userRole");
+    const firstname = await localStorage.getItem("firstname");
+    const lastname = await localStorage.getItem("lastname");
+    const email = await localStorage.getItem("email");
 
+    if (token && role === "admin") {
+      setToken(token);
+    } else {
+      window.location = "register";
+    }
+  };
+  useEffect(() => {
+    getAdminAuth();
+  }, [token]);
   return (
     <>
       <div
@@ -24,18 +40,18 @@ export default function Index() {
       >
         <Topbar />
         {/* <TopBarADmin /> */}
-        <MainAdmin token={adminToken} />
+        <MainAdmin token={token} />
         <div className="row">
           <div className="col col-lg-4 col-sm-12 col-xs-12 mt-2">
             <Reviews />
           </div>
           <div className="col col-lg-8 mt-2 col-sm-12 col-xs-12">
-            <AddNewPlayGround token={adminToken} />
+            <AddNewPlayGround token={token} />
           </div>
         </div>
         <div className="row mt-3">
           <div className="col">
-            <Accordions token={adminToken} />
+            <Accordions token={token} />
           </div>
         </div>
       </div>

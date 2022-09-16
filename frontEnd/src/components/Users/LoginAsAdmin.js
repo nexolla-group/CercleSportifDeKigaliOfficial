@@ -12,42 +12,37 @@ const LoginAsAdmin = ({ back2 }) => {
       password: password,
     })
       .then((res) => {
-        // console.log("login successfully");
-        // console.log("RESPONSE: ", response.data.user);
-
-        setEmail("");
-        setPassword("");
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userRole", res.data.token);
-        toast("Logged in successful!", {
-          type: "success",
-          position: "top-right",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        const hash = window.location.hash;
-
-        if (hash !== "") {
-          window.location = "/" + hash.split("#")[1];
-        } else {
+        localStorage.setItem("userRole", res.data.userRole);
+        if (res.data.userRole === "admin") {
+          toast("Login Successfull", {
+            type: "success",
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           window.location = "/admin";
+        } else {
+          return;
         }
       })
       .catch((error) => {
-        toast("Invalid Admin Credentials", {
-          type: "Worning",
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        if (error.response.data.errors) {
+          toast(error.response.data.errors, {
+            type: "Worning",
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         console.log(error);
       });
   };
@@ -60,12 +55,14 @@ const LoginAsAdmin = ({ back2 }) => {
           type="text"
           placeholder="Email"
           required
+          value={email}
         />
         <input
           onChange={(event) => setPassword(event.target.value)}
           type="password"
           placeholder="Password"
           required
+          value={password}
         />
         <div class="btn-box">
           <button type="button" onClick={back2}>
