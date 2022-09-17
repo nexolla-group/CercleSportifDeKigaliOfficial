@@ -73,6 +73,7 @@ const MakeBooking = ({
               placeholder="Telephone number ex: 250780000000"
               onChange={(e) => setTelephone(e.target.value)}
               required
+              maxLength="10"
             />
           </div>
           <div className="col-6">
@@ -133,7 +134,6 @@ const MakeBooking = ({
                 required
               >
                 <option selected>Payment method</option>
-                <option value="paypal">PayPal</option>
                 <option value="momo">Momo</option>
               </select>
             </div>

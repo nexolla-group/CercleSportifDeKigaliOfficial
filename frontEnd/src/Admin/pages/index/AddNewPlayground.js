@@ -3,6 +3,7 @@ import Axios from "axios";
 import AlarmAddRoundedIcon from "@mui/icons-material/AlarmAddRounded";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { authHandler } from "../../../helpers";
 
 const AddNewPlayGround = ({ token }) => {
   const [name, setName] = useState("");
@@ -24,7 +25,10 @@ const AddNewPlayGround = ({ token }) => {
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
       .then((res) => setGetHours(res.data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        authHandler(error);
+        console.log(error);
+      });
   };
   // console.log(getHours);
   useEffect(() => {
@@ -32,12 +36,18 @@ const AddNewPlayGround = ({ token }) => {
       .then((res) => {
         setGetcategory(res.data.data);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        authHandler(e);
+        console.log(e);
+      });
     Axios.get("http://localhost:2004/api/playGround")
       .then((response) => {
         setFetchPlayground(response.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        authHandler(err);
+      });
     fetchHours();
   }, []);
 
@@ -59,6 +69,7 @@ const AddNewPlayGround = ({ token }) => {
         console.log("data saved successfully", response);
       })
       .catch((error) => {
+        authHandler(error);
         console.log("problem of saving data", error);
       });
   };

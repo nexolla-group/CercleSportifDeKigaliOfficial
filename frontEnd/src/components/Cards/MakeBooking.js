@@ -34,7 +34,7 @@ const MakeBooking = ({
   const getToken = async () => {
     const token = await localStorage.getItem("token");
     const role = await localStorage.getItem("userRole");
-    // console.log("token ", token);
+
     if (token && role !== "admin") {
       setToken(token);
       setChecking(false);

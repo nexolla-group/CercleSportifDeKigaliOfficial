@@ -76,17 +76,29 @@ const Register = () => {
         window.location = "/";
       })
       .catch((error) => {
-        console.log(error);
-        toast("Already have an account!", {
-          type: "danger",
-          position: "bottom-right",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        if (error.response.data.errors) {
+          toast(error.response.data.errors, {
+            type: "success",
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          toast("Something went wrong try again after some time!", {
+            type: "danger",
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       });
   };
   return (

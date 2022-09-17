@@ -101,7 +101,20 @@ const CheckoutModal = ({
         console.log("error");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.errors[0].msg);
+      toast(
+        `${error.response.data.errors[0].value} is ${error.response.data.errors[0].msg}`,
+        {
+          type: "warning",
+          position: "bottom-right",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
   };
   return (
@@ -128,9 +141,12 @@ const CheckoutModal = ({
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
+            <div
+              style={{ backgroundColor: "whitesmoke" }}
+              class="modal-header  text-black"
+            >
               <h5 class="modal-title" id="staticBackdropLabel">
-                Preview
+                Details about {name}
               </h5>
               <button
                 type="button"
@@ -142,7 +158,7 @@ const CheckoutModal = ({
             <div class="modal-body">
               <div className="row text-start">
                 <div className="col col-12">
-                  <div class="card">
+                  <div class="card shadow-sm rounded">
                     <div class="card-header">Personal Details</div>
                     <div class="card-body">
                       <div className="row">
@@ -154,7 +170,7 @@ const CheckoutModal = ({
                         </div>
                         <div className="col col-12">
                           <p className="fs-6 fw-bold">
-                            First name:{" "}
+                            Last name:{" "}
                             <span className="fw-normal">{lastname}</span>
                           </p>
                         </div>
@@ -186,7 +202,7 @@ const CheckoutModal = ({
                           </p>
                         </div>
                       </div>
-                      <div className="row">
+                      <div className="row mt-1">
                         <div className="col col-12">
                           <p className="fs-6 fw-bold">
                             Notes:{" "}
@@ -204,7 +220,7 @@ const CheckoutModal = ({
                   </div>
                 </div>
                 <div className="col col-12">
-                  <div class="card">
+                  <div class="card shadow-sm rounded">
                     <div class="card-header">Total</div>
                     <div class="card-body">
                       <div className="row">

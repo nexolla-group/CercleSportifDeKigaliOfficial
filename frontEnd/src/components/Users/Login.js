@@ -31,10 +31,10 @@ const Login = ({ back1 }) => {
         });
         const hash = window.location.hash;
 
-        if (hash !== "") {
+        if (hash.trim() != "") {
           window.location = "/" + hash.split("#")[1];
         } else {
-          window.location = "makebooking";
+          window.location = "/";
         }
       })
       .catch((error) => {
