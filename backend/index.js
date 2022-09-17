@@ -17,6 +17,7 @@ const playGround = require("./routes/playGround");
 const trans = require("./routes/transaction");
 const playGroundcategory = require("./routes/pCategory");
 const time = require("./routes/time");
+const bookTime = require("./routes/bookedTime");
 const reviews = require("./routes/reviews");
 const upload = require("./routes/uploads");
 const app = express();
@@ -46,6 +47,7 @@ app.use("/api/transaction", trans);
 app.use("/api/groundCategory", playGroundcategory);
 app.use("/api/reviews", reviews);
 app.use("/api/time", time);
+app.use("/api/booktime", bookTime);
 app.use("/api/uploads", upload);
 
 app.use(errorHandler);

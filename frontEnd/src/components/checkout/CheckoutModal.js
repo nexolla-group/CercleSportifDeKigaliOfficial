@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 const CheckoutModal = ({
   firstname,
@@ -17,17 +18,85 @@ const CheckoutModal = ({
 
   tax,
   totalCost,
+  id,
+  name,
 }) => {
   const [transactionId, setTransactionId] = useState("");
 
+  const organizationId = "10fddf2a-0883-41c0-aa6d-74c98ec3b792";
+  const description = "payment request with endpoints for playground";
+  const callbackUrl = "http://myonlineprints.com/payments/callback";
+
   const handlePayment = async (e) => {
     e.preventDefault();
+
     try {
       const result = await Axios.get(
         "https://www.uuidgenerator.net/api/version4"
       );
       if (result) {
-        console.log(result.data);
+        setTransactionId(result.data);
+        const paymentResult = await Axios.post(
+          "https://opay-api.oltranz.com/opay/paymentrequest",
+          {
+            telephoneNumber: telephone,
+            amount: totalCost,
+            organizationId: organizationId,
+            description: description,
+            callbackUrl: callbackUrl,
+            transactionId: transactionId,
+          }
+        );
+        if (paymentResult) {
+          console.log(paymentResult.data);
+          const data = {
+            transactionId: transactionId,
+            playGroundId: id,
+            amount: totalCost,
+            transactionStatus: paymentResult.data.status,
+            paymentMethod: paymentMethod,
+            transactionDescription: paymentResult.data.description,
+            firstname: firstname,
+            lastname: lastname,
+            telephoneNumber: telephone,
+            email: email,
+            city: city,
+          };
+
+          const saveTransaction = await Axios.post(
+            "http://localhost:2004/api/transaction",
+            data
+          );
+          if (saveTransaction) {
+            if (saveTransaction.data.success == "true") {
+              toast(paymentResult.data.description, {
+                type: "success",
+                position: "bottom-right",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } else {
+              toast("Fatal error", {
+                type: "waring",
+                position: "bottom-right",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
+          } else {
+            console.log(`error: ${saveTransaction.data.response.dataerrors}`);
+          }
+        } else {
+          console.log(paymentResult);
+        }
       } else {
         console.log("error");
       }
@@ -140,7 +209,10 @@ const CheckoutModal = ({
                     <div class="card-body">
                       <div className="row">
                         <div className="col col-12">
-                          <p className="fs-6 fw-bold">Playground:</p>
+                          <p className="fs-6 fw-bold">
+                            Playground:
+                            <span className="fw-normal">{name}</span>
+                          </p>
                         </div>
                         <div className="col col-12">
                           <p className="fs-6 fw-bold">

@@ -3,14 +3,20 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import Booking from "../../Pages/Booking";
 
-const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
+const MakeBooking = ({
+  setNextScreen,
+  selectedHours,
+  date,
+  totalPrice,
+  name,
+}) => {
   let { id } = useParams();
   let [playgrounds, setPlaygrounds] = useState([]);
 
   const totalOfFrancs = totalPrice * selectedHours.length;
   const tax = (totalOfFrancs * 18) / 100;
   const totalCost = totalOfFrancs + tax;
-  let { name } = playgrounds;
+
   let api = `http://localhost:2004/api/playground/`;
   useEffect(() => {
     Axios.get(api)
@@ -144,6 +150,8 @@ const MakeBooking = ({ setNextScreen, selectedHours, date, totalPrice }) => {
               totalOfFrancs={totalOfFrancs}
               tax={tax}
               totalCost={totalCost}
+              id={id}
+              name={name}
             />
           </div>
         </>

@@ -5,7 +5,7 @@ import { NavLink, Link } from "react-router-dom";
 import Step1 from "./Step1";
 import MakeBooking from "./MakeBooking";
 
-const BookPlayground = () => {
+const BookPlayground = ({ name }) => {
   const { id } = useParams();
   const [playgrounds, setPlaygrounds] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -56,6 +56,7 @@ const BookPlayground = () => {
           selectedHours={selectedHours}
           date={date}
           totalPrice={totalPrice}
+          name={name}
         />
       ) : (
         <Step1

@@ -9,7 +9,7 @@ import BlackFooter from "../Footer/BlackFooter";
 
 const CardDetails = () => {
   let { id } = useParams();
-  console.log(id);
+
   let [playgrounds, setPlaygrounds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   let { name, description, photo, price, isAvailable } = playgrounds;
@@ -25,7 +25,7 @@ const CardDetails = () => {
         isLoading(true);
         console.log(err);
       });
-  }, [api]);
+  }, []);
   return (
     <>
       <Header />
@@ -98,7 +98,7 @@ const CardDetails = () => {
 
         <div className="row" style={{ backgroundColor: "whitesmoke" }}>
           <div className="col">
-            <BookPlayground />
+            <BookPlayground name={name} />
           </div>
         </div>
       </div>

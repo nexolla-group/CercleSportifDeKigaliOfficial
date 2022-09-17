@@ -8,6 +8,8 @@ const MakeBooking = ({
   totalOfFrancs,
   tax,
   totalCost,
+  id,
+  name,
 }) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -68,7 +70,7 @@ const MakeBooking = ({
               type="text"
               value={telephone}
               className="form-control"
-              placeholder="Telephone number ex: 0780000000"
+              placeholder="Telephone number ex: 250780000000"
               onChange={(e) => setTelephone(e.target.value)}
               required
             />
@@ -166,6 +168,8 @@ const MakeBooking = ({
                 totalOfFrancs={totalOfFrancs}
                 tax={tax}
                 totalCost={totalCost}
+                id={id}
+                name={name}
               />
             </div>
           </div>

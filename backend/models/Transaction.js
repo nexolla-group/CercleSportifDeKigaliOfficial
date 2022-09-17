@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const TransactionSchema = mongoose.Schema({
   transactionId: {
     type: String,
+    unique: true,
     required: true,
   },
   playGroundId: {
@@ -24,9 +25,11 @@ const TransactionSchema = mongoose.Schema({
   },
   firstname: {
     type: String,
+    required: true,
   },
   lastname: {
     type: String,
+    required: true,
   },
   telephoneNumber: {
     type: String,

@@ -52,3 +52,17 @@ exports.updateTransaction = asyncHandler(async (req, res, next) => {
     },
   });
 });
+exports.deleteTransaction = asyncHandler(async (req, res, next) => {
+  const transaction = await Transaction.findByIdAndDelete(req.params.id);
+  if (!transaction) {
+    return next(
+      new ErrorResponse(`transaction with id: ${req.params.id} not found`, 404)
+    );
+  }
+  res.status(200).json({
+    success: true,
+    data: {
+      msg: `transaction with id: ${req.params.id} has already deleted`,
+    },
+  });
+});

@@ -27,7 +27,8 @@ exports.getSingleBookedTime = asyncHandler(async (req, res, next) => {
 // POST /api/time
 // access private
 exports.bookTime = asyncHandler(async (req, res, next) => {
-  const bookedTime = await BookedTime.create(req.body);
+  const { playgroundId, day, from, to } = req.body;
+  const bookedTime = await BookedTime.create({ playgroundId, day, from, to });
   res.status(201).json({ success: true, data: bookedTime });
 });
 
