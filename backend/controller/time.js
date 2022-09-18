@@ -10,9 +10,9 @@ exports.getTime = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: time });
 });
 
-// // @desc    Get single time
-// // @route   GET /api/time/:id
-// // @acess   public
+// @desc    Get single time
+// @route   GET /api/time/:id
+// @acess   public
 exports.getSingleTime = asyncHandler(async (req, res, next) => {
   const time = await Time.findById(req.params.id);
   if (!time) {

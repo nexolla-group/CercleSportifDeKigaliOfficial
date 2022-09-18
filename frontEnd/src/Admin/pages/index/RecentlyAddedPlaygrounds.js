@@ -19,7 +19,7 @@ const RecentlyAddedPlaygrounds = ({ token }) => {
   };
   useEffect(() => {
     fetchPlayground();
-  }, []);
+  }, [api]);
   const handleDelete = async (id) => {
     try {
       await Axios.delete(

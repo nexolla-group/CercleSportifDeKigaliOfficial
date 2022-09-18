@@ -30,6 +30,7 @@ const Step1 = ({
       });
   }, [api]);
   // console.log(date);
+  // const minDate = year + "-" + month + "-" + day;
   return (
     <>
       <div

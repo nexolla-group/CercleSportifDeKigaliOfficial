@@ -48,7 +48,7 @@ const CheckoutModal = ({
           }
         );
         if (paymentResult) {
-          console.log(paymentResult.data);
+          console.log(paymentResult);
           const data = {
             transactionId: transactionId,
             playGroundId: id,
@@ -80,8 +80,8 @@ const CheckoutModal = ({
                 progress: undefined,
               });
             } else {
-              toast("Fatal error", {
-                type: "waring",
+              toast(paymentResult.data.description, {
+                type: "danger",
                 position: "bottom-right",
                 autoClose: 10000,
                 hideProgressBar: false,

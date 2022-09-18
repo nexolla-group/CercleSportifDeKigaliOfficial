@@ -73,7 +73,7 @@ const MakeBooking = ({
               placeholder="Telephone number ex: 250780000000"
               onChange={(e) => setTelephone(e.target.value)}
               required
-              maxLength="10"
+              maxLength="12"
             />
           </div>
           <div className="col-6">

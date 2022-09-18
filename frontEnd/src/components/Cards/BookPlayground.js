@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
-import { NavLink, Link } from "react-router-dom";
+
 import Step1 from "./Step1";
 import MakeBooking from "./MakeBooking";
 
@@ -28,7 +28,9 @@ const BookPlayground = ({ name }) => {
       });
     Axios.get("http://localhost:2004/api/time")
       .then((res) => {
-        setAvailableHours(res.data.data);
+        setAvailableHours(
+          res.data.data.filter((item) => item.playground == id)
+        );
       })
       .catch((e) => console.log(e));
   }, [api]);
