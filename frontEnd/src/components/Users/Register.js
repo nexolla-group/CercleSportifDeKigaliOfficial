@@ -80,7 +80,7 @@ const Register = () => {
           toast(error.response.data.errors, {
             type: "success",
             position: "bottom-right",
-            autoClose: 1000,
+            autoClose: 6000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,

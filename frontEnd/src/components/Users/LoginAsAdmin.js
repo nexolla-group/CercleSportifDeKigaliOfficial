@@ -18,7 +18,7 @@ const LoginAsAdmin = ({ back2 }) => {
           toast("Login Successfull", {
             type: "success",
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 6000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -35,7 +35,7 @@ const LoginAsAdmin = ({ back2 }) => {
           toast(error.response.data.errors, {
             type: "Worning",
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 6000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

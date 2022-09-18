@@ -6,11 +6,11 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const SortingTable = ({ token }) => {
-  const [getTransactions, setGetTransactions] = useState([]);
+const PrintReportBlank = () => {
+  const [getTransactions, setGetTransactions] = useState("");
   const transactionsAPI = "http://localhost:2004/api/transaction";
-  const fetchTransations = () => {
-    axios
+  const fetchTransations = async () => {
+    await axios
       .get(transactionsAPI)
       .then((res) => {
         console.log(res.data.data);
@@ -23,7 +23,7 @@ const SortingTable = ({ token }) => {
   useEffect(() => {
     fetchTransations();
   }, []);
-  const data = React.useMemo(() => getTransactions, [getTransactions]);
+  const data = React.useMemo(() => MOCK_DATA, []);
   const columns = React.useMemo(
     () => [
       { header: "firstname", Footer: "firstname", accessor: "firstname" },
@@ -78,64 +78,53 @@ const SortingTable = ({ token }) => {
     useSortBy
   );
   const { globalFilter } = state;
-
   return (
     <>
-      <div></div>
-      <div
-        style={{ overflowX: "scroll" }}
-        className="container-fluid overflow-auto"
+      {" "}
+      <table
+        style={{ width: "100%" }}
+        {...getTableProps()}
+        className="table table-hover table-bordered"
       >
-        <h1 className="text-center">Transactions</h1>
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-        <table
-          style={{ width: "100%" }}
-          {...getTableProps()}
-          className="table table-hover table-bordered"
-        >
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr
-                style={{ backgroundColor: "whitesmoke" }}
-                {...headerGroup.getHeaderGroupProps()}
-              >
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("header")}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr
+              style={{ backgroundColor: "whitesmoke" }}
+              {...headerGroup.getHeaderGroupProps()}
+            >
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("header")}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
 
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <Link to="printreport" target="_blank">
-          Print
-        </Link>
-      </div>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </>
   );
 };
 
-export default SortingTable;
+export default PrintReportBlank;
