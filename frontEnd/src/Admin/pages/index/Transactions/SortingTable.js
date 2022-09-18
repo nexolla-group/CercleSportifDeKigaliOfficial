@@ -130,7 +130,7 @@ const SortingTable = ({ token }) => {
             })}
           </tbody>
         </table>
-        <Link to="printreport" target="_blank">
+        <Link to="PrintReportBlank" target="_blank">
           Print
         </Link>
       </div>

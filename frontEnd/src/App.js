@@ -28,6 +28,7 @@ import Test1 from "./Admin/components/test1/Test1";
 import Login from "./Admin/pages/login/Login";
 import Index from "./Admin/pages/index/Indexx";
 import SortingTable from "./Admin/pages/index/Transactions/SortingTable";
+import PrintReportBlank from "./Admin/pages/index/Transactions/PrintReportBlank";
 
 function App() {
   return (
@@ -58,7 +59,10 @@ function App() {
           />
           <Route path="/admin/newPlayground" element={<NewPlayground />} />
           <Route path="/admin/" element={<Index />} />
-          <Route path="/admin/printreport" element={<SortingTable />} />
+          <Route
+            path="/admin/PrintReportBlank"
+            element={<PrintReportBlank />}
+          />
           <Route path="/admin/login" element={<Login />} />
         </Routes>
       </Router>

@@ -196,7 +196,7 @@ const AddNewPlayGround = ({ token }) => {
                   <input
                     type="number"
                     className="form-control"
-                    placeholder="Default price"
+                    placeholder="Price per available hour"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                   />
