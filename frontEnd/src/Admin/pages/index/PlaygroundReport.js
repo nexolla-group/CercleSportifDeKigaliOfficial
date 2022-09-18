@@ -30,7 +30,7 @@ const PlaygroundReport = () => {
         <div className="row mt-2">
           <div className="col col-6">
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="exampleFormControlInput1"
               placeholder="Search"

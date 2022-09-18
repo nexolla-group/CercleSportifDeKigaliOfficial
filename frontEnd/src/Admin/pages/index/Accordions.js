@@ -4,6 +4,7 @@ import RegiteredUser from "../registeredUser/RegiteredUser";
 // import PlaygroundReport from "./PlaygroundReport";
 import BasicTable from "./Transactions/BasicTable";
 import SortingTable from "./Transactions/SortingTable";
+import FilteringTable from "./Transactions/FilteringTable";
 
 const Accordions = ({ token }) => {
   return (
@@ -24,7 +25,7 @@ const Accordions = ({ token }) => {
           </h2>
           <div
             id="collapseOne"
-            className="accordion-collapse collapse show"
+            className="accordion-collapse collapse"
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
@@ -40,7 +41,7 @@ const Accordions = ({ token }) => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseTwo"
-              aria-expanded="false"
+              aria-expanded="true"
               aria-controls="collapseTwo"
             >
               Booked Playgrounds Report:
@@ -56,6 +57,7 @@ const Accordions = ({ token }) => {
               {/* <PlaygroundReport /> */}
               {/* <BasicTable /> */}
               <SortingTable />
+              {/* <FilteringTable /> */}
             </div>
           </div>
         </div>
@@ -74,7 +76,7 @@ const Accordions = ({ token }) => {
           </h2>
           <div
             id="collapseThree"
-            className="accordion-collapse collapse show"
+            className="accordion-collapse collapse"
             aria-labelledby="headingThree"
             data-bs-parent="#accordionExample"
           >

@@ -1,32 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useTable, useSortBy, useGlobalFilter, useFilters } from "react-table";
-import MOCK_DATA from "./MOCK_DATA.json";
-import { format } from "date-fns";
+import React from "react";
+import { useTable, useGlobalFilter } from "react-table";
 import GlobalFilter from "./GlobalFilter";
-import axios from "axios";
+import MOCK_DATA from "./MOCK_DATA.json";
 
-const SortingTable = ({ token }) => {
-  const [getTransactions, setGetTransactions] = useState("");
-  const transactionsAPI = "http://localhost:2004/api/transaction";
-  const fetchTransations = async () => {
-    await axios
-      .get(transactionsAPI)
-      .then((res) => {
-        console.log(res.data.data);
-        setGetTransactions(res.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    fetchTransations();
-  }, []);
-  const data = React.useMemo(() => getTransactions, []);
+const FilteringTable = () => {
+  const data = React.useMemo(() => MOCK_DATA, []);
   const columns = React.useMemo(
     () => [
-      { header: "firstname", Footer: "firstname", accessor: "firstname" },
-      { header: "lastname", Footer: "lastname", accessor: "lastname" },
+      { header: "firstname", footer: "firstname", accessor: "firstname" },
+      { header: "lastname", footer: "lastname", accessor: "lastname" },
       { header: "amount", Footer: "amount", accessor: "amount" },
 
       {
@@ -36,28 +18,17 @@ const SortingTable = ({ token }) => {
       },
 
       {
-        header: "Phone ",
-        Footer: "Phone ",
+        header: "telephone Number ",
+        Footer: "telephone Number ",
         accessor: "telephoneNumber",
       },
       { header: "email", Footer: "email", accessor: "email" },
       { header: "city", Footer: "city", accessor: "city" },
-      {
-        header: "created at",
-        Footer: "cretedAt",
-        accessor: "cretedAt",
-        cell: ({ value }) => {
-          return format(new Date(value), "dd/mm/yyy");
-        },
-      },
-      {
-        header: "transactionStatus",
-        Footer: "transactionStatus",
-        accessor: "transactionStatus",
-      },
+      { header: "created at", Footer: "cretedAt", accessor: "cretedAt" },
     ],
     []
   );
+  const tableInstance = useTable({ columns, data }, useGlobalFilter);
   const {
     getTableProps,
     getTableBodyProps,
@@ -67,15 +38,8 @@ const SortingTable = ({ token }) => {
     prepareRow,
     state,
     setGlobalFilter,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useFilters,
-    useGlobalFilter,
-    useSortBy
-  );
+  } = tableInstance;
+
   const { globalFilter } = state;
   return (
     <>
@@ -88,7 +52,7 @@ const SortingTable = ({ token }) => {
         <table
           style={{ width: "100%" }}
           {...getTableProps()}
-          className="table table-hover table-bordered"
+          className="table table-hover"
         >
           <thead>
             {headerGroups.map((headerGroup) => (
@@ -97,15 +61,8 @@ const SortingTable = ({ token }) => {
                 {...headerGroup.getHeaderGroupProps()}
               >
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  <th {...column.getHeaderProps()}>
                     {column.render("header")}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
                   </th>
                 ))}
               </tr>
@@ -126,7 +83,7 @@ const SortingTable = ({ token }) => {
               );
             })}
           </tbody>
-          {/* <tfoot>
+          <tfoot>
             {footerGroups.map((group) => (
               <tr
                 style={{ backgroundColor: "whitesmoke", fontWeight: "bold" }}
@@ -140,11 +97,11 @@ const SortingTable = ({ token }) => {
                 ))}
               </tr>
             ))}
-          </tfoot> */}
+          </tfoot>
         </table>
       </div>
     </>
   );
 };
 
-export default SortingTable;
+export default FilteringTable;
