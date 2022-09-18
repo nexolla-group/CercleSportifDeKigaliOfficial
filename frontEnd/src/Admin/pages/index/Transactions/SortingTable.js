@@ -1,8 +1,9 @@
 import React from "react";
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 import MOCK_DATA from "./MOCK_DATA.json";
+import { format } from "date-fns";
 
-const BasicTable = () => {
+const SortingTable = () => {
   const data = React.useMemo(() => MOCK_DATA, []);
   const columns = React.useMemo(
     () => [
@@ -23,12 +24,19 @@ const BasicTable = () => {
       },
       { header: "email", Footer: "email", accessor: "email" },
       { header: "city", Footer: "city", accessor: "city" },
-      { header: "created at", Footer: "cretedAt", accessor: "cretedAt" },
+      {
+        header: "created at",
+        Footer: "cretedAt",
+        accessor: "cretedAt",
+        cell: ({ value }) => {
+          return format(new Date(value), "dd/mm/yyy");
+        },
+      },
     ],
     []
   );
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data }, useSortBy);
   const {
     getTableProps,
     getTableBodyProps,
@@ -57,8 +65,15 @@ const BasicTable = () => {
                 {...headerGroup.getHeaderGroupProps()}
               >
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {column.render("header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " 🔽"
+                          : " 🔼"
+                        : ""}
+                    </span>
                   </th>
                 ))}
               </tr>
@@ -100,4 +115,4 @@ const BasicTable = () => {
   );
 };
 
-export default BasicTable;
+export default SortingTable;

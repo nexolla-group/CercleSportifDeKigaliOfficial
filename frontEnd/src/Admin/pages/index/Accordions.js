@@ -3,6 +3,7 @@ import Category from "../category/Category";
 import RegiteredUser from "../registeredUser/RegiteredUser";
 // import PlaygroundReport from "./PlaygroundReport";
 import BasicTable from "./Transactions/BasicTable";
+import SortingTable from "./Transactions/SortingTable";
 
 const Accordions = ({ token }) => {
   return (
@@ -53,7 +54,8 @@ const Accordions = ({ token }) => {
           >
             <div className="accordion-body">
               {/* <PlaygroundReport /> */}
-              <BasicTable />
+              {/* <BasicTable /> */}
+              <SortingTable />
             </div>
           </div>
         </div>
