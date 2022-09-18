@@ -1,5 +1,6 @@
 import React from "react";
 import Category from "../category/Category";
+import RegiteredUser from "../registeredUser/RegiteredUser";
 // import PlaygroundReport from "./PlaygroundReport";
 import BasicTable from "./Transactions/BasicTable";
 
@@ -53,6 +54,30 @@ const Accordions = ({ token }) => {
             <div className="accordion-body">
               {/* <PlaygroundReport /> */}
               <BasicTable />
+            </div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className="accordion-button fw-bold bg-dark text-light"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="true"
+              aria-controls="collapseThree"
+            >
+              Registered users
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            className="accordion-collapse collapse show"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <RegiteredUser />
             </div>
           </div>
         </div>

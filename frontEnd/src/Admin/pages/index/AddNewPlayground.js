@@ -20,7 +20,6 @@ const AddNewPlayGround = ({ token }) => {
   const [fetchPlayground, setFetchPlayground] = useState([]);
   const [playground, setPlayground] = useState("");
   const [getHours, setGetHours] = useState([]);
-  console.log(photo);
 
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
@@ -51,27 +50,72 @@ const AddNewPlayGround = ({ token }) => {
     fetchHours();
   }, []);
 
-  const savePlayground = () => {
-    Axios.post("http://localhost:2004/api/playGround/", {
-      token,
-      name,
-      category,
-      description,
-      price,
-      photo,
-    })
-      .then((response) => {
-        setName("");
-        setCategory("");
-        setPrice("");
-        setDescription("");
+  const savePlayground = async (e) => {
+    e.preventDefault();
+    const photo1 = new FormData();
+    photo1.append("file", photo);
+    const photo1Res = await Axios.post(
+      "http://localhost:2004/api/uploads",
+      photo1
+    );
+    if (photo1Res) {
+      const image1 = photo1Res.data;
 
-        console.log("data saved successfully", response);
-      })
-      .catch((error) => {
-        authHandler(error);
-        console.log("problem of saving data", error);
-      });
+      const photo2Data = new FormData();
+      photo2Data.append("file", photo2);
+      const photo2Res = await Axios.post(
+        "http://localhost:2004/api/uploads",
+        photo2Data
+      );
+      if (photo2Res) {
+        const image2 = photo2Res.data;
+
+        const photo3Data = new FormData();
+        photo3Data.append("file", photo3);
+        const photo3Res = await Axios.post(
+          "http://localhost:2004/api/uploads",
+          photo3Data
+        );
+        if (photo3Res) {
+          const image3 = photo3Res.data;
+
+          const saveplayground = await Axios.post(
+            "http://localhost:2004/api/playGround/",
+            {
+              token: token,
+              name: name,
+              category: category,
+              description: description,
+              price: price,
+              photo: image1,
+              photo2: image2,
+              photo3: image3,
+            }
+          )
+            .then((response) => {
+              setName("");
+              setCategory("");
+              setPrice("");
+              setDescription("");
+              setPhoto("");
+              setPhoto2("");
+              setPhoto3("");
+
+              console.log("data saved successfully", response);
+            })
+            .catch((error) => {
+              authHandler(error);
+              console.log("problem of saving data", error);
+            });
+        } else {
+          console.log("image3 not saved");
+        }
+      } else {
+        console.log("image2 not saved");
+      }
+    } else {
+      console.log("image1 error");
+    }
   };
   const handleSaveHour = async () => {
     if (!playground && !startTime && !endTime) {
@@ -114,11 +158,11 @@ const AddNewPlayGround = ({ token }) => {
       console.log(image);
     };
   }
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    setPhoto(file);
-    // previewFiles(file);
-  };
+  // const handleChange = (e) => {
+  // const file = e.target.files[0];
+  // setPhoto(file);
+  // previewFiles(file);
+  // };
   return (
     <>
       <div class="card">
@@ -174,9 +218,8 @@ const AddNewPlayGround = ({ token }) => {
                 <div className="input-group mb-3">
                   <input
                     type="file"
-                    // value={photo}
                     className="form-control"
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => setPhoto(e.target.files[0])}
                   />
 
                   <label
@@ -191,7 +234,7 @@ const AddNewPlayGround = ({ token }) => {
                     type="file"
                     className="form-control"
                     id="inputGroupFile02"
-                    // onChange={(e) => setPhoto2(e.target.value)}
+                    onChange={(e) => setPhoto2(e.target.files[0])}
                   />
                   <label
                     className="input-group-text text-light bg-dark"
@@ -204,7 +247,7 @@ const AddNewPlayGround = ({ token }) => {
                   <input
                     type="file"
                     class="form-control"
-                    // onChange={(e) => setPhoto3(e.target.value)}
+                    onChange={(e) => setPhoto3(e.target.files[0])}
                   />
                   <label
                     class="input-group-text text-light bg-dark"

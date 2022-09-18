@@ -68,7 +68,7 @@ const PlaygroundDetails = () => {
               <div className="img-display">
                 <div style={{ display: "flex" }} className="img-showcase">
                   <img className="img-thumbnail" src={photo.url} />
-                  <img className={photo2.url} />
+                  <img className="img-thumbnail" src={photo2.url} />
                   <img
                     className="img-thumbnail"
                     src={photo3.url}
