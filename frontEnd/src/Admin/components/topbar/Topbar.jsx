@@ -55,13 +55,6 @@ export default function Topbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav  me-auto mb-2 mb-lg-0"></ul>
-            <div className={styles.topbarIconContainer}>
-              <NotificationsNone />
-              <span className={styles.topIconBadge}>2</span>
-            </div>
-            <div className={styles.topbarIconContainer}>
-              <Settings />
-            </div>
             <img
               src="https://w7.pngwing.com/pngs/636/819/png-transparent-computer-icons-privacy-policy-admin-icon-copyright-rim-share-icon.png"
               alt=""

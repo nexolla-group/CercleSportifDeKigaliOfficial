@@ -22,7 +22,7 @@ const Login = ({ back1 }) => {
         toast("Logged in successful!", {
           type: "success",
           position: "top-right",
-          autoClose: 10000,
+          autoClose: 60000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -41,7 +41,7 @@ const Login = ({ back1 }) => {
         toast("Invalid Credentials", {
           type: "Worning",
           position: "top-right",
-          autoClose: 2000,
+          autoClose: 60000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

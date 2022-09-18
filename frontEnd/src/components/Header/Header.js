@@ -63,11 +63,7 @@ const Header = () => {
                 Playgrounds
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink to="#" className="nav-link text-light">
-                Sport Centers
-              </NavLink>
-            </li>
+
             <li className="nav-item">
               <NavLink to="#" className="nav-link text-light">
                 About Us
@@ -76,11 +72,6 @@ const Header = () => {
             <li className="nav-item">
               <NavLink to="#" className="nav-link text-light">
                 Contuct Us
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="#" className="nav-link text-light">
-                Booking
               </NavLink>
             </li>
           </ul>

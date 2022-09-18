@@ -1,8 +1,9 @@
 import React from "react";
-import { useTable } from "react-table";
+import { useTable, useGlobalFilter } from "react-table";
+import GlobalFilter from "./GlobalFilter";
 import MOCK_DATA from "./MOCK_DATA.json";
 
-const BasicTable = () => {
+const FilteringTable = () => {
   const data = React.useMemo(() => MOCK_DATA, []);
   const columns = React.useMemo(
     () => [
@@ -27,8 +28,7 @@ const BasicTable = () => {
     ],
     []
   );
-
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data }, useGlobalFilter);
   const {
     getTableProps,
     getTableBodyProps,
@@ -36,15 +36,19 @@ const BasicTable = () => {
     footerGroups,
     rows,
     prepareRow,
+    state,
+    setGlobalFilter,
   } = tableInstance;
+
+  const { globalFilter } = state;
   return (
     <>
       <div
         style={{ overflowX: "scroll" }}
         className="container-fluid overflow-auto"
       >
-        {" "}
         <h1 className="text-center">Transactions</h1>
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <table
           style={{ width: "100%" }}
           {...getTableProps()}
@@ -100,4 +104,4 @@ const BasicTable = () => {
   );
 };
 
-export default BasicTable;
+export default FilteringTable;
