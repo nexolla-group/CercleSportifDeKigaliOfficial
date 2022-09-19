@@ -8,12 +8,18 @@ const authHandler = (error) => {
 };
 const logOut = () => {
   localStorage.clear();
-  window.location = "register";
+  window.location = "/";
 };
 const getToken = async () => {
   const token = await localStorage.getItem("token");
   if (token && token !== "") return token;
   return null;
 };
-
-module.exports = { getToken, authHandler, logOut };
+const GetUserDetails = async () => {
+  const fname = localStorage.getItem("firstname");
+  const lname = localStorage.getItem("lastname");
+  const Email = localStorage.getItem("email");
+  const allDetails = [fname, lname, Email];
+  return allDetails;
+};
+module.exports = { getToken, authHandler, logOut, GetUserDetails };

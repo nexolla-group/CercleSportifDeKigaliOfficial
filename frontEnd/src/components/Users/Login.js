@@ -15,10 +15,11 @@ const Login = ({ back1 }) => {
         // console.log("login successfully");
         // console.log("RESPONSE: ", response.data.user);
 
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("email", response.data.email);
+        console.log("login:", response.data);
         setEmail("");
         setPassword("");
-        localStorage.setItem("token", response.data.token);
-
         toast("Logged in successful!", {
           type: "success",
           position: "top-right",

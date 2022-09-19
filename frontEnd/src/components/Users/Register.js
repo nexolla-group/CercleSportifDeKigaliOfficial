@@ -68,11 +68,15 @@ const Register = () => {
           draggable: true,
           progress: undefined,
         });
+
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("firstname", response.data.firstname);
+        localStorage.setItem("lastname", response.data.lastname);
+        localStorage.setItem("email", response.data.email);
         setFirstName("");
         setlastName("");
         setEmail("");
         setPassword("");
-        localStorage.setItem("token", response.data.token);
         window.location = "/";
       })
       .catch((error) => {
