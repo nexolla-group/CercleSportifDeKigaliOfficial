@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
-import { getToken, logOut } from "../../helpers";
+import { getToken, logOut, GetUserDetails } from "../../helpers";
 import Axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 
 const Header = () => {
   const [token, setToken] = useState(null);
   const [firstName, sestFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
-  const userProfiles = () => {
-    const fname = localStorage.getItem("firstname");
-    const lname = localStorage.getItem("lastname");
-    sestFirstName(fname);
-    setLastName(lname);
-    console.log("Hello:", firstName, lastName);
-  };
+  const [email, setEmail] = useState("");
 
   const validation = async () => {
     const T = await getToken();
     setToken(T);
   };
+  const getProfile = async () => {
+    const details = await GetUserDetails();
+    sestFirstName(details[0]);
+    setLastName(details[1]);
+    setEmail(details[2]);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+  };
   useEffect(() => {
     validation();
+    getProfile();
   }, []);
   return (
     <>
@@ -120,15 +125,15 @@ const Header = () => {
             {token !== null ? (
               <>
                 <AccountCircleIcon
-                  onClick={userProfiles}
                   data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
+                  href="#exampleModalToggle"
+                  role="button"
                   className="fs-1"
                 />
                 <LogoutIcon
                   onClick={() => {
                     const sure = window.confirm(
-                      "are you sure you want to log out?"
+                      "are you sure you want to Logout?"
                     );
                     if (sure) {
                       logOut();
@@ -142,10 +147,15 @@ const Header = () => {
                 <NavLink
                   style={{ padding: "1px 45px" }}
                   to="/register"
-                  className="bg-warning fs-5 "
+                  className=" btn btn-sm  fs-5 "
                 >
-                  <p className="fs-6 text-center text-light fw-bold ">
+                  <p
+                    className={`${styles.LoginOutlinedIcon} fs-5 text-center text-light fw-bold`}
+                  >
                     Sign up or Login
+                    <LoginOutlinedIcon
+                      className={`${styles.LoginOutlinedIcon} fs-1`}
+                    />
                   </p>
                 </NavLink>
               </>
@@ -155,16 +165,19 @@ const Header = () => {
       </nav>
       <div
         className="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
+        id="exampleModalToggle"
         aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog ">
           <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                User Profiles
+            <div
+              style={{ backgroundColor: "whitesmoke" }}
+              className="modal-header"
+            >
+              <h5 className="modal-title" id="exampleModalToggleLabel">
+                Profile Details
               </h5>
               <button
                 type="button"
@@ -173,21 +186,82 @@ const Header = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
-              <h4 className="fs-6">First name: </h4>
+            <div className="modal-body fs-5">
+              <p>First name:{firstName}</p>
+              <p>Last name:{lastName}</p>
+              <p>Email:{email}</p>
             </div>
             <div className="modal-footer">
               <button
-                onClick={logOut}
-                type="button"
-                className="btn btn-danger btn-sm"
-                data-bs-dismiss="modal"
+                className="btn btn-dark"
+                data-bs-target="#exampleModalToggle2"
+                data-bs-toggle="modal"
               >
-                Logout
+                <CreateOutlinedIcon /> Edit
               </button>
-              <button type="button" className="btn btn-sm btn-primary">
-                Save changes
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="exampleModalToggle2"
+        aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel2"
+        tabindex="-1"
+      >
+        <div className="modal-dialog ">
+          <div className="modal-content">
+            <div
+              style={{ backgroundColor: "whitesmoke" }}
+              className="modal-header"
+            >
+              <h5 className="modal-title" id="exampleModalToggleLabel2">
+                Update Profile Details
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body fs-5">
+              <input
+                type="text"
+                placeholder={`Current Firstname: ${firstName}`}
+                className="shadow-sm form-control"
+              />
+              <input
+                type="text"
+                placeholder={` Current Last name: ${lastName}`}
+                className="shadow-sm form-control"
+              />
+              <input
+                type="text"
+                placeholder={`Current email: ${email}`}
+                className="shadow-sm form-control"
+              />
+              <input
+                type="password"
+                placeholder="Enter Current password"
+                className="shadow-sm form-control"
+              />
+              <input
+                type="password"
+                placeholder="Enter New password"
+                className="shadow-sm form-control"
+              />
+            </div>
+            <div className="modal-footer">
+              <button
+                className="btn btn-dark"
+                data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal"
+              >
+                Back
               </button>
+              <button className="btn btn-dark btn-sm fs-5">Save Changes</button>
             </div>
           </div>
         </div>
