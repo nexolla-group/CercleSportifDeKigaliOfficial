@@ -8,7 +8,7 @@ import MakeBooking from "./MakeBooking";
 const BookPlayground = ({ name }) => {
   const { id } = useParams();
   const [playgrounds, setPlaygrounds] = useState([]);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState("");
   const [nextScreen, setNextScreen] = useState(false);
   const [selectedHours, setSelectedHours] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);

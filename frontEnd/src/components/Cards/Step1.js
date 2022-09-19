@@ -29,7 +29,17 @@ const Step1 = ({
         console.log(err);
       });
   }, [api]);
-  // console.log(date);
+  function CheckD(e) {
+    var current = new Date(document.getElementById("task_date").value);
+    var today = new Date();
+    if (current.getDate() < today.getDate()) {
+      alert("You Can't Assign Task For Expired Date");
+      setDate("");
+    } else {
+      return setDate(e.target.value);
+    }
+  }
+
   // const minDate = year + "-" + month + "-" + day;
   return (
     <>
@@ -60,9 +70,12 @@ const Step1 = ({
             <input
               name="date"
               type="date"
+              id="task_date"
               value={date}
               className="input-group"
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => {
+                CheckD(e);
+              }}
             />
           </div>
         </div>
@@ -134,11 +147,12 @@ const Step1 = ({
             <div className="p-3 ">
               <button
                 onClick={() => {
-                  if (selectedHours.length > 0) {
+                  console.log(date);
+                  if (selectedHours.length > 0 && date !== "") {
                     setNextScreen(true);
                   } else {
-                    toast("Please select hours you want to book", {
-                      type: "worning",
+                    toast("Please select date and hours you want to book ", {
+                      type: "warning",
                       position: "bottom-right",
                       autoClose: 1000,
                       hideProgressBar: true,

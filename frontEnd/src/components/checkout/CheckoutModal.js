@@ -22,13 +22,15 @@ const CheckoutModal = ({
   name,
 }) => {
   const [transactionId, setTransactionId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const organizationId = "10fddf2a-0883-41c0-aa6d-74c98ec3b792";
   const description = "payment request with endpoints for playground";
-  const callbackUrl = "http://myonlineprints.com/payments/callback";
+  const callbackUrl = `https://cercle-sportif-backend.herokuapp.com/api/transaction/payment/${transactionId}`;
 
   const handlePayment = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const result = await Axios.get(
@@ -36,6 +38,7 @@ const CheckoutModal = ({
       );
       if (result) {
         setTransactionId(result.data);
+        console.log(transactionId);
         const paymentResult = await Axios.post(
           "https://opay-api.oltranz.com/opay/paymentrequest",
           {
@@ -64,11 +67,12 @@ const CheckoutModal = ({
           };
 
           const saveTransaction = await Axios.post(
-            "http://localhost:2004/api/transaction",
+            "https://cercle-sportif-backend.herokuapp.com/api/transaction",
             data
           );
           if (saveTransaction) {
             if (saveTransaction.data.success == "true") {
+              setLoading(false);
               toast(paymentResult.data.description, {
                 type: "success",
                 position: "bottom-right",
@@ -80,6 +84,7 @@ const CheckoutModal = ({
                 progress: undefined,
               });
             } else {
+              setLoading(false);
               toast(paymentResult.data.description, {
                 type: "danger",
                 position: "bottom-right",
@@ -92,16 +97,30 @@ const CheckoutModal = ({
               });
             }
           } else {
+            setLoading(false);
             console.log(`error: ${saveTransaction.data.response.dataerrors}`);
           }
         } else {
+          setLoading(false);
           console.log(paymentResult);
+          toast("Transaction failed Please try again", {
+            type: "Warning",
+            position: "bottom-right",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       } else {
+        setLoading(false);
         console.log("error");
       }
     } catch (error) {
-      console.log(error.response.data.errors[0].msg);
+      setLoading(false);
+      console.log(error.response.data);
       toast(
         `${error.response.data.errors[0].value} is ${error.response.data.errors[0].msg}`,
         {
@@ -288,7 +307,7 @@ const CheckoutModal = ({
                 class="btn btn-primary"
                 onClick={handlePayment}
               >
-                Make Payment
+                {loading ? "wait..." : "Make Payment"}
               </button>
             </div>
           </div>
