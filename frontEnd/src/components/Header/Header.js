@@ -230,27 +230,27 @@ const Header = () => {
               <input
                 type="text"
                 placeholder={`Current Firstname: ${firstName}`}
-                className="shadow-sm form-control"
+                className="shadow-sm form-control mt-2"
               />
               <input
                 type="text"
                 placeholder={` Current Last name: ${lastName}`}
-                className="shadow-sm form-control"
+                className="shadow-sm form-control mt-2"
               />
               <input
                 type="text"
                 placeholder={`Current email: ${email}`}
-                className="shadow-sm form-control"
+                className="shadow-sm form-control mt-2"
               />
               <input
                 type="password"
                 placeholder="Enter Current password"
-                className="shadow-sm form-control"
+                className="shadow-sm form-control mt-2"
               />
               <input
                 type="password"
                 placeholder="Enter New password"
-                className="shadow-sm form-control"
+                className="shadow-sm form-control mt-2"
               />
             </div>
             <div className="modal-footer">

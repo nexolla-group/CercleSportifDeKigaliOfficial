@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-const Categories = ({ playgrounds, setSearchResult }) => {
+const Categories = ({ categories, setSearchResult }) => {
   const [category, setCategory] = useState(["All"]);
 
   useEffect(() => {
     const res = ["All"];
-    for (let i = 0; i < playgrounds.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
       console.log(i);
-      if (res.indexOf(playgrounds[i].category) === -1) {
-        res.push(playgrounds[i].category);
+      if (res.indexOf(categories[i].name) === -1) {
+        res.push(categories[i].name);
       }
     }
     setCategory(res);
-  }, [playgrounds]);
+  }, [categories]);
+
   const handleFilter = (category) => {
     if (category == "All") {
-      setSearchResult(playgrounds);
+      setSearchResult(categories);
     } else {
-      setSearchResult(playgrounds.filter((item) => item.category == category));
+      setSearchResult(
+        categories.filter((item) => item.category.name == category)
+      );
     }
   };
   return (
@@ -41,13 +44,13 @@ const Categories = ({ playgrounds, setSearchResult }) => {
         data-bs-parent="#accordionExample"
       >
         <div className="accordion-body d-flex flex-wrap gap-3">
-          {category.map((item, index) => (
+          {categories.map((item, index) => (
             <button
               onClick={() => handleFilter(item)}
               className="btn btn-primary"
               key={index}
             >
-              {item}
+              {item.name}
             </button>
           ))}
         </div>
