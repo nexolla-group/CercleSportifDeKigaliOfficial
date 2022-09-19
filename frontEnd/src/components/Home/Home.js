@@ -12,6 +12,7 @@ import BlackFooter from "../Footer/BlackFooter";
 const Home = () => {
   const [searchResult, setSearchResult] = useState([]);
   let [playgrounds, setPlaygrounds] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,13 +25,29 @@ const Home = () => {
         setIsLoading(false);
         console.log(res.data);
         setSearchResult(res.data.data);
-        // setPlaygrounds(res.data.data);
+        setPlaygrounds(res.data.data);
       })
       .catch((err) => {
         setIsLoading(false);
         console.log(err);
       });
-  }, []);
+  }, [api]);
+
+  const categoriesApi = "http://localhost:2004/api/groundCategory";
+  const getCategories = () => {
+    Axios.get(categoriesApi)
+      .then((res) => {
+        setCategories(res.data.data);
+        console.log(categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getCategories();
+  }, [categoriesApi]);
+
   useEffect(() => {
     if (searchKey === "") {
       setSearchResult(playgrounds);
@@ -55,6 +72,7 @@ const Home = () => {
             <Filters
               playgrounds={playgrounds}
               setSearchResult={setSearchResult}
+              categories={categories}
             />
 
             <div className="col-lg-8 col-12">
