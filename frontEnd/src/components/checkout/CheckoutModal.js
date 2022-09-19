@@ -24,10 +24,6 @@ const CheckoutModal = ({
   const [transactionId, setTransactionId] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const organizationId = "10fddf2a-0883-41c0-aa6d-74c98ec3b792";
-  const description = "payment request with endpoints for playground";
-  const callbackUrl = `https://cercle-sportif-backend.herokuapp.com/api/transaction/payment/${transactionId}`;
-
   const handlePayment = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,7 +34,12 @@ const CheckoutModal = ({
       );
       if (result) {
         setTransactionId(result.data);
-        console.log(transactionId);
+        console.log(`Generated transaction Id: ${transactionId}`);
+
+        const organizationId = "10fddf2a-0883-41c0-aa6d-74c98ec3b792";
+        const description = "payment request with endpoints for playground";
+        const callbackUrl = `https://cercle-sportif-backend.herokuapp.com/api/transaction/payment/${transactionId}`;
+
         const paymentResult = await Axios.post(
           "https://opay-api.oltranz.com/opay/paymentrequest",
           {
@@ -120,7 +121,7 @@ const CheckoutModal = ({
       }
     } catch (error) {
       setLoading(false);
-      console.log(error.response.data);
+      console.log(error.response);
       toast(
         `${error.response.data.errors[0].value} is ${error.response.data.errors[0].msg}`,
         {

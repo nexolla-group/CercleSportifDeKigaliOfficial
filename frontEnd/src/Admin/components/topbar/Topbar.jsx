@@ -8,17 +8,34 @@ import {
   ClassSharp,
 } from "@material-ui/icons";
 import TopBarADmin from "../../pages/index/TopBarADmin";
+import { toast } from "react-toastify";
 
-export default function Topbar({ token, role }) {
-  const [password, setPassword] = useState("");
+export default function Topbar({ token }) {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
-  const checkPassword = () => {
-    Axios.post("http://localhost:2004/api/auth/login/", {
-      password: password,
-    }).then((res) => {
-      localStorage.setItem("token", res.data.token);
-      console.log(res.data.token);
-    });
+  const changePassword = async (e) => {
+    e.preventDefault();
+    const passwordResult = await Axios.put(
+      "http://localhost:2004/api/auth/updatepassword",
+      { token, currentPassword, newPassword }
+    )
+      .then((res) => {
+        toast(
+          `Hello ${res.data.lastname} password had been successfully changed!!`,
+          {
+            type: "success",
+            position: "bottom-right",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <>
@@ -90,15 +107,19 @@ export default function Topbar({ token, role }) {
                 <div className="col col-12">
                   <input
                     type="password"
+                    value={currentPassword}
                     placeholder="Current password"
                     className="form-control"
+                    onChange={(e) => setCurrentPassword(e.target.value)}
                   />
                 </div>
                 <div className="col col-12 mt-4 ">
                   <input
                     type="password"
+                    value={newPassword}
                     placeholder="New password"
                     className="form-control"
+                    onChange={(e) => setNewPassword(e.target.value)}
                   />
                 </div>
               </div>
@@ -115,7 +136,11 @@ export default function Topbar({ token, role }) {
               >
                 Logout
               </button>
-              <button type="button" className="btn btn-sm btn-primary">
+              <button
+                type="button"
+                className="btn btn-sm btn-primary"
+                onClick={changePassword}
+              >
                 Save changes
               </button>
             </div>
