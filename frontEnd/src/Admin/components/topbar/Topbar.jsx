@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./topbar.module.css";
 import Axios from "axios";
-import {
-  NotificationsNone,
-  Language,
-  Settings,
-  ClassSharp,
-} from "@material-ui/icons";
-import TopBarADmin from "../../pages/index/TopBarADmin";
 
 export default function Topbar({ token, role }) {
   const [password, setPassword] = useState("");
