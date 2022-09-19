@@ -21,6 +21,8 @@ const AddNewPlayGround = ({ token }) => {
   const [fetchPlayground, setFetchPlayground] = useState([]);
   const [playground, setPlayground] = useState("");
   const [getHours, setGetHours] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingHour, setLoadingHour] = useState(false);
 
   const fetchHours = () => {
     Axios.get("http://localhost:2004/api/time")
@@ -53,6 +55,7 @@ const AddNewPlayGround = ({ token }) => {
 
   const savePlayground = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const photo1 = new FormData();
     photo1.append("file", photo);
     const photo1Res = await Axios.post(
@@ -94,6 +97,7 @@ const AddNewPlayGround = ({ token }) => {
             }
           )
             .then((response) => {
+              setLoading(false);
               setName("");
               setCategory("");
               setPrice("");
@@ -105,6 +109,7 @@ const AddNewPlayGround = ({ token }) => {
               console.log("data saved successfully", response);
             })
             .catch((error) => {
+              setLoading(false);
               authHandler(error);
               if (error.response.data.msg) {
                 toast(error.response.data.msg, {
@@ -131,16 +136,20 @@ const AddNewPlayGround = ({ token }) => {
               }
             });
         } else {
+          setLoading(false);
           console.log("image3 not saved");
         }
       } else {
+        setLoading(false);
         console.log("image2 not saved");
       }
     } else {
+      setLoading(false);
       console.log("image1 error");
     }
   };
   const handleSaveHour = async () => {
+    setLoadingHour(true);
     if (!playground && !startTime && !endTime) {
       console.log("Please add both Time and select Playground!");
     } else if (playground == "") {
@@ -155,12 +164,16 @@ const AddNewPlayGround = ({ token }) => {
         endTime,
       })
         .then((res) => {
+          setLoadingHour(false);
           setStartTime("");
           setEndTime("");
           fetchHours();
           console.log("Hour saved!" + res);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setLoadingHour(false);
+          console.log(e);
+        });
     }
   };
   const deleteHour = async (id) => {
@@ -308,27 +321,7 @@ const AddNewPlayGround = ({ token }) => {
                     </div>
                   </div>
                 </div>
-                {/* <p className="fs-4"> Pick Unavailable Hours</p>
-                <div className="row">
-                  <div className="col">
-                    <div class="input-group">
-                      <span class="input-group-text">From</span>
-                      <input
-                        type="time"
-                        aria-label="First name"
-                        class="form-control"
-                        placeholder="from"
-                      />
-                      <input
-                        type="time"
-                        aria-label="Last name"
-                        class="form-control"
-                        placeholder="to"
-                      />
-                      <span class="input-group-text">To</span>
-                    </div>
-                  </div>
-                </div> */}
+
                 <div className="row">
                   <div className="col">
                     <div class="input-group">
@@ -356,7 +349,8 @@ const AddNewPlayGround = ({ token }) => {
                         onClick={handleSaveHour}
                         className="btn rounded shadow-sm text-light bg-black fs-6 w-100 g-5"
                       >
-                        Add Hour
+                        {loadingHour ? "wait..." : "Add Hour"}
+
                         <span>
                           <AlarmAddRoundedIcon />
                         </span>
@@ -402,7 +396,7 @@ const AddNewPlayGround = ({ token }) => {
                   onClick={savePlayground}
                   className="btn btn-dark text-light"
                 >
-                  Add Playground
+                  {loading ? "saving..." : "Add Playground"}
                 </button>
               </div>
             </div>

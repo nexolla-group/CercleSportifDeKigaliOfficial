@@ -24,8 +24,7 @@ const CheckoutModal = ({
   const [transactionId, setTransactionId] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handlePayment = async (e) => {
-    e.preventDefault();
+  const handlePayment = async () => {
     setLoading(true);
 
     try {
@@ -117,7 +116,8 @@ const CheckoutModal = ({
         }
       } else {
         setLoading(false);
-        console.log("error");
+        // console.log("error");
+        handlePayment();
       }
     } catch (error) {
       setLoading(false);

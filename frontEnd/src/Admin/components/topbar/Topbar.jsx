@@ -13,14 +13,17 @@ import { toast } from "react-toastify";
 export default function Topbar({ token }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const changePassword = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const passwordResult = await Axios.put(
       "http://localhost:2004/api/auth/updatepassword",
       { token, currentPassword, newPassword }
     )
       .then((res) => {
+        setLoading(false);
         toast(
           `Hello ${res.data.lastname} password had been successfully changed!!`,
           {
@@ -35,7 +38,10 @@ export default function Topbar({ token }) {
           }
         );
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   };
   return (
     <>
@@ -141,7 +147,19 @@ export default function Topbar({ token }) {
                 className="btn btn-sm btn-primary"
                 onClick={changePassword}
               >
-                Save changes
+                {" "}
+                {loading ? (
+                  <div class="text-center">
+                    <div
+                      class="spinner-border spinner-border-sm px-7"
+                      role="status"
+                    >
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  "Save Changes"
+                )}
               </button>
             </div>
           </div>
