@@ -13,7 +13,12 @@ export default function Topbar({ token, role }) {
   const [password, setPassword] = useState("");
 
   const checkPassword = () => {
-    Axios.post("http://localhost:2004/api/auth/login/", { password: password });
+    Axios.post("http://localhost:2004/api/auth/login/", {
+      password: password,
+    }).then((res) => {
+      localStorage.setItem("token", res.data.token);
+      console.log(res.data.token);
+    });
   };
   return (
     <>
