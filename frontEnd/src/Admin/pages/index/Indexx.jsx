@@ -16,6 +16,7 @@ export default function Index() {
 
   // const adminToken = localStorage.getItem("token");
   const [token, setToken] = useState(null);
+  const [role, setRole] = useState();
   const getAdminAuth = async () => {
     const token = await localStorage.getItem("token");
     const role = await localStorage.getItem("userRole");
@@ -25,6 +26,7 @@ export default function Index() {
 
     if (token && role === "admin") {
       setToken(token);
+      setRole(role);
     } else {
       window.location = "register";
     }
@@ -38,7 +40,7 @@ export default function Index() {
         style={{ padding: "2rem", backgroundColor: "whitesmoke" }}
         className="container-fluid"
       >
-        <Topbar />
+        <Topbar token={token} role={role} />
         {/* <TopBarADmin /> */}
         <MainAdmin token={token} />
         <div className="row mt-3">

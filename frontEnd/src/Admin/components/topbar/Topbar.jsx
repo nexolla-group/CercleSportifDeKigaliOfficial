@@ -1,35 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./topbar.module.css";
-import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import Axios from "axios";
+import {
+  NotificationsNone,
+  Language,
+  Settings,
+  ClassSharp,
+} from "@material-ui/icons";
 import TopBarADmin from "../../pages/index/TopBarADmin";
 
-export default function Topbar() {
+export default function Topbar({ token, role }) {
+  const [password, setPassword] = useState("");
+
+  const checkPassword = () => {
+    Axios.post("http://localhost:2004/api/auth/login/", { password: password });
+  };
   return (
     <>
-      {" "}
-      {/* <div className={`${styles.topbar}`}>
-        <div className={styles.topbarWrapper}>
-          <div className={styles.topLeft}>
-            <span className={styles.logo}>Admin-pannel</span>
-          </div>
-
-          <div className={styles.topRight}>
-            <div className={styles.topbarIconContainer}>
-              <NotificationsNone />
-              <span className={styles.topIconBadge}>2</span>
-            </div>
-
-            <div className={styles.topbarIconContainer}>
-              <Settings />
-            </div>
-            <img
-              src="https://w7.pngwing.com/pngs/636/819/png-transparent-computer-icons-privacy-policy-admin-icon-copyright-rim-share-icon.png"
-              alt=""
-              className={styles.topAvatar}
-            />
-          </div>
-        </div>
-      </div> */}
       <nav
         style={{
           backgroundColor: "whitesmoke",
@@ -59,10 +46,77 @@ export default function Topbar() {
               src="https://w7.pngwing.com/pngs/636/819/png-transparent-computer-icons-privacy-policy-admin-icon-copyright-rim-share-icon.png"
               alt=""
               className={styles.topAvatar}
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
             />
           </div>
         </div>
       </nav>
+
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                style={{ color: "blue" }}
+                class="modal-title fw-bold fs-6"
+                id="exampleModalLabel"
+              >
+                Admin Profile
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <div className="row ">
+                <div className="col col-12">
+                  <p className="fs-6 text-start">Change Password</p>
+                </div>
+                <div className="col col-12">
+                  <input
+                    type="password"
+                    placeholder="Current password"
+                    className="form-control"
+                  />
+                </div>
+                <div className="col col-12 mt-4 ">
+                  <input
+                    type="password"
+                    placeholder="New password"
+                    className="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="modal-header">
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  window.location = "register";
+                }}
+                type="button"
+                className="btn btn-sm btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Logout
+              </button>
+              <button type="button" className="btn btn-sm btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
