@@ -26,6 +26,7 @@ const Home = () => {
         console.log(res.data);
         setSearchResult(res.data.data);
         setPlaygrounds(res.data.data);
+        console.log(playgrounds);
       })
       .catch((err) => {
         setIsLoading(false);

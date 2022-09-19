@@ -18,7 +18,11 @@ const Filters = ({ setStatus, playgrounds, categories, setSearchResult }) => {
 
       <div className="accordion" id="accordionExample">
         <Status setSearchResult={setSearchResult} playgrounds={playgrounds} />
-        <Categories categories={categories} setSearchResult={setSearchResult} />
+        <Categories
+          categories={categories}
+          setSearchResult={setSearchResult}
+          playgrounds={playgrounds}
+        />
       </div>
     </div>
   );

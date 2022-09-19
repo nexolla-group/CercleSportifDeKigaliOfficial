@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Categories = ({ categories, setSearchResult }) => {
+const Categories = ({ categories, setSearchResult, playgrounds }) => {
   const [category, setCategory] = useState(["All"]);
 
   useEffect(() => {
@@ -16,10 +16,10 @@ const Categories = ({ categories, setSearchResult }) => {
 
   const handleFilter = (category) => {
     if (category == "All") {
-      setSearchResult(categories);
+      setSearchResult(playgrounds);
     } else {
       setSearchResult(
-        categories.filter((item) => item.category.name == category)
+        playgrounds.filter((item) => item.category._id == category._id)
       );
     }
   };
