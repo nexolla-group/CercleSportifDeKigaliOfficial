@@ -6,15 +6,22 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const PrintReportBlank = () => {
-  const [getTransactions, setGetTransactions] = useState("");
+const PrintReportBlank = ({ token }) => {
+  const [getTransactions, setGetTransactions] = useState([]);
   const transactionsAPI = "http://localhost:2004/api/transaction";
-  const fetchTransations = async () => {
-    await axios
+  const fetchTransations = () => {
+    axios
       .get(transactionsAPI)
       .then((res) => {
         console.log(res.data.data);
-        setGetTransactions(res.data.data);
+        if (res.data.data) {
+          setGetTransactions(res.data.data);
+          setTimeout(() => {
+            window.print();
+          }, 2000);
+        } else {
+          return;
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -23,7 +30,7 @@ const PrintReportBlank = () => {
   useEffect(() => {
     fetchTransations();
   }, []);
-  const data = React.useMemo(() => MOCK_DATA, []);
+  const data = React.useMemo(() => getTransactions, [getTransactions]);
   const columns = React.useMemo(
     () => [
       { header: "firstname", Footer: "firstname", accessor: "firstname" },
@@ -78,51 +85,56 @@ const PrintReportBlank = () => {
     useSortBy
   );
   const { globalFilter } = state;
+
   return (
     <>
-      {" "}
-      <table
-        style={{ width: "100%" }}
-        {...getTableProps()}
-        className="table table-hover table-bordered"
+      <div
+        style={{ overflowX: "scroll" }}
+        className="container-fluid overflow-auto mt-4"
       >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr
-              style={{ backgroundColor: "whitesmoke" }}
-              {...headerGroup.getHeaderGroupProps()}
-            >
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render("header")}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+        <table
+          style={{ width: "100%" }}
+          {...getTableProps()}
+          className="table table-hover table-bordered"
+        >
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr
+                style={{ backgroundColor: "whitesmoke" }}
+                {...headerGroup.getHeaderGroupProps()}
+              >
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    {column.render("header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " 🔽"
+                          : " 🔼"
+                        : ""}
+                    </span>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

@@ -4,6 +4,7 @@ import AlarmAddRoundedIcon from "@mui/icons-material/AlarmAddRounded";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { authHandler } from "../../../helpers";
+import { toast } from "react-toastify";
 
 const AddNewPlayGround = ({ token }) => {
   const [name, setName] = useState("");
@@ -105,7 +106,29 @@ const AddNewPlayGround = ({ token }) => {
             })
             .catch((error) => {
               authHandler(error);
-              console.log("problem of saving data", error);
+              if (error.response.data.msg) {
+                toast(error.response.data.msg, {
+                  type: "danger",
+                  position: "bottom-right",
+                  autoClose: 6000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              } else {
+                toast("Something went wrong try again after some time!", {
+                  type: "danger",
+                  position: "bottom-right",
+                  autoClose: 1000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }
             });
         } else {
           console.log("image3 not saved");
@@ -196,7 +219,7 @@ const AddNewPlayGround = ({ token }) => {
                   <input
                     type="number"
                     className="form-control"
-                    placeholder="Default price"
+                    placeholder="Price per available hour"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                   />

@@ -41,14 +41,6 @@ export default function Index() {
         <Topbar />
         {/* <TopBarADmin /> */}
         <MainAdmin token={token} />
-        <div className="row">
-          <div className="col col-lg-4 col-sm-12 col-xs-12 mt-2">
-            <Reviews />
-          </div>
-          <div className="col col-lg-8 mt-2 col-sm-12 col-xs-12">
-            <AddNewPlayGround token={token} />
-          </div>
-        </div>
         <div className="row mt-3">
           <div className="col">
             <Accordions token={token} />
