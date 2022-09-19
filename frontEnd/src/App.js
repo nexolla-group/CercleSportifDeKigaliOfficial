@@ -10,11 +10,11 @@ import ContactUs from "./Pages/ContactUs";
 import SportCenter from "./Pages/SportCenters";
 import Header from "./components/Header/Header";
 import Playgrounds from "./Pages/Playgrounds";
-import BlackFooter from "./components/Footer/BlackFooter";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MakeBooking from "./components/Cards/MakeBooking";
-import Checkout from "./components/checkout/Checkout";
+
 // admin
 import "./App.css";
 import HomeAdmin from "./Admin/pages/home/HomeAdmin";
@@ -24,10 +24,10 @@ import NewUser from "./Admin/pages/newUser/NewUser";
 import ProductList from "./Admin/pages/playgroundList/ProductList";
 import Playground from "./Admin/pages/playground/Playground";
 import NewPlayground from "./Admin/pages/newPlayground/NewPlayground";
-import Test1 from "./Admin/components/test1/Test1";
+
 import Login from "./Admin/pages/login/Login";
 import Index from "./Admin/pages/index/Indexx";
-import SortingTable from "./Admin/pages/index/Transactions/SortingTable";
+
 import PrintReportBlank from "./Admin/pages/index/Transactions/PrintReportBlank";
 
 function App() {

@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
 const UpdatePlayGround = ({ item }) => {
   const [getCategory, setGetCategory] = useState([]);
   const [name, setName] = useState("");
@@ -10,7 +9,7 @@ const UpdatePlayGround = ({ item }) => {
   const [photo, setPhoto] = useState("");
   const [photo2, setPhoto2] = useState("");
   const [photo3, setPhoto3] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading1, setIsLoading1] = useState(false);
 
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMWZhNTM1M2I5Y2I1Y2E4ZDI5ZmVjOCIsImlhdCI6MTY2MzAxODMwMCwiZXhwIjoxNjY1NjEwMzAwfQ.JPNK5aj4SIzXC-jEefXcyhrDjo9BM6tx1PXDNQEkbyc";
@@ -29,7 +28,7 @@ const UpdatePlayGround = ({ item }) => {
   }, []);
   const saveUpdates = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading1(true);
     if (photo) {
       const photo1 = new FormData();
       photo1.append("file", photo);
@@ -70,11 +69,11 @@ const UpdatePlayGround = ({ item }) => {
                 await axios
                   .put(`http://localhost:2004/api/playGround/${item._id}`, data)
                   .then((res) => {
-                    setIsLoading(false);
+                    setIsLoading1(false);
                     console.log(`Data Update Successfully!!\n${res}`);
                   })
                   .catch((e) => {
-                    setIsLoading(false);
+                    setIsLoading1(false);
                     console.log(e);
                   });
               }
@@ -214,7 +213,18 @@ const UpdatePlayGround = ({ item }) => {
           Close
         </button>
         <button type="button" className="btn btn-primary" onClick={saveUpdates}>
-          Update
+          {isLoading1 ? (
+            <>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Update
+            </>
+          ) : (
+            "update"
+          )}
         </button>
       </div>
     </>
