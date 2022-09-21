@@ -29,6 +29,7 @@ import Login from "./Admin/pages/login/Login";
 import Index from "./Admin/pages/index/Indexx";
 
 import PrintReportBlank from "./Admin/pages/index/Transactions/PrintReportBlank";
+import BookingReport from "./components/BookingReport/BookingReport";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/register" element={<UserRegister />} />
           {/* <Route path="/checkout" element={<Checkout />} /> */}
           <Route path="/makebooking" element={<MakeBooking />} />
+          <Route path="/bookingReport" element={<BookingReport />} />
 
           {/* admin */}
           <Route path="/admin/index" element={<HomeAdmin />} />

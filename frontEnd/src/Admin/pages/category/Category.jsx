@@ -118,7 +118,7 @@ export default function Category({ token }) {
               /> */}
 
               <button
-                className="btn btn-outline-primary"
+                className="btn btn-outline-primary mt-2"
                 onClick={handleCreate}
               >
                 Create

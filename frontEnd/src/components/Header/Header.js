@@ -95,6 +95,17 @@ const Header = () => {
                   Contuct Us
                 </NavLink>
               </li>
+              {token !== null ? (
+                <>
+                  <li>
+                    <NavLink to="bookingReport" className="nav-link text-light">
+                      Booking
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
           <NavLink to="/register" className=" p-2">

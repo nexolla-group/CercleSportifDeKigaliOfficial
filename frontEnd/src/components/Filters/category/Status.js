@@ -6,7 +6,7 @@ const Status = ({ playgrounds, setSearchResult }) => {
   useEffect(() => {
     const res = ["All"];
     for (let i = 0; i < playgrounds.length; i++) {
-      console.log(i);
+      // console.log(i);
       if (res.indexOf(playgrounds[i].isAvailable) === -1) {
         res.push(playgrounds[i].isAvailable);
       }
