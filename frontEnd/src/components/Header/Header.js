@@ -13,6 +13,7 @@ const Header = () => {
   const [firstName, sestFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
 
   const validation = async () => {
     const T = await getToken();
@@ -23,9 +24,11 @@ const Header = () => {
     sestFirstName(details[0]);
     setLastName(details[1]);
     setEmail(details[2]);
+    setRole(details[3]);
     console.log(firstName);
     console.log(lastName);
     console.log(email);
+    console.log(role);
   };
   useEffect(() => {
     validation();
@@ -95,7 +98,7 @@ const Header = () => {
                   Contuct Us
                 </NavLink>
               </li>
-              {token !== null ? (
+              {token !== null && role !== "admin" ? (
                 <>
                   <li>
                     <NavLink to="bookingReport" className="nav-link text-light">

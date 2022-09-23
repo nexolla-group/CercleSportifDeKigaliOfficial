@@ -12,6 +12,7 @@ const logOut = () => {
 };
 const getToken = async () => {
   const token = await localStorage.getItem("token");
+
   if (token && token !== "") return token;
   return null;
 };
@@ -19,7 +20,8 @@ const GetUserDetails = async () => {
   const fname = localStorage.getItem("firstname");
   const lname = localStorage.getItem("lastname");
   const Email = localStorage.getItem("email");
-  const allDetails = [fname, lname, Email];
+  const role = localStorage.getItem("userRole");
+  const allDetails = [fname, lname, Email, role];
   return allDetails;
 };
 module.exports = { getToken, authHandler, logOut, GetUserDetails };

@@ -9,6 +9,7 @@ const Register = () => {
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
   const next1 = () => {
     var form1 = document.getElementById("form1");
@@ -73,6 +74,7 @@ const Register = () => {
         localStorage.setItem("firstname", response.data.firstname);
         localStorage.setItem("lastname", response.data.lastname);
         localStorage.setItem("email", response.data.email);
+        localStorage.setItem("userRole", response.data.userRole);
         setFirstName("");
         setlastName("");
         setEmail("");
