@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 
 const SortingTable = ({ token }) => {
   const [getTransactions, setGetTransactions] = useState([]);
-  const transactionsAPI = "http://localhost:2004/api/transaction";
+  const transactionsAPI =
+    "https://cercle-sportif-backend.herokuapp.com/api/transaction";
   const fetchTransations = () => {
     axios
       .get(transactionsAPI)
